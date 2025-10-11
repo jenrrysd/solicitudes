@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Acceso a la Información Pública</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Incluir jsPDF desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+    <div align="center" id="spincharge" style="display: none;">
+        <div class="spinner-border text-danger" role="status" id="divLoad">
+            <div id="spinoff">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+                <br>
+                <p style="font-size: 20px; width: 232px; margin-left: -65px;">Enviando información...</p>
+            </div>
+            <span class="sr-only">Ministerio de Trabajo y Promoción del Empleo...</span>
+        </div>
+    </div>
+
+    <div id="preloader" style="display: none;">
+        <div id="divBlock">
+            <div class='LoadingLine'></div>
+            <div class="modal-preload">
+                <div class="circles">
+                    <div class="circle"></div>
+                    <div class="mainLogo">
+                        <i class="preloadEc">MTPE</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mostrarInformacion">
+        <div class="headercabs" style="padding-top: 43px;">
+            <div class="logomtpes">
+                <a href="#">
+                    <img class="img" alt="" src="assets/img/logo_mtpe_main.png" style="width: 210px;">
+                </a>
+            </div>
+            <div class="msjmtpes" style="margin-top: -32px;">
+                <div id="idTitulo"><label id="lblTitulo" style="font-size: 22px;">SOLICITUD VIRTUAL DE ACCESO A LA
+                        INFORMACIÓN PÚBLICA</label></div>
+                <div id="idLeyTuo"><label id="lblLeyTuo">Según TUO Ley Nº 27806, Ley de Transparencia y Acceso a la
+                        Información Pública, aprobado por DS N° 021-2019-JUS</label></div>
+                <div id="idLeyTuo"><label id="lblLeyTuo">Responsable de atender las solicitudes de acceso a la
+                        información pública: Sr. Felix Alberto Atuncar Quispe (e) </label></div>
+                <div id="idLeyTuo"><label id="lblLeyTuo">Nombramiento: R.M. N° 100-2012-TR / R.D. N° 0100-2023-MTPE/4/12
+                    </label></div>
+            </div>
+        </div>
+
+        <div class="headermtpes"></div>
+
+        <div class="lineaAzul subTitulo">
+            <b>+ &nbsp;</b> REQUISITOS OBLIGATORIOS DE LA SOLICITUD:
+        </div>
+
+        <input type="hidden" id="textTipoPersona" name="textTipoPersona" />
+        <input type="hidden" id="textTipoDocumento" name="textTipoDocumento" />
+        <input type="hidden" id="textTipoDepartamento" name="textTipoDepartamento" />
+        <input type="hidden" id="textTipoProvincia" name="textTipoProvincia" />
+        <input type="hidden" id="textTipoDistrito" name="textTipoDistrito" />
+        <input type="hidden" id="textArea" name="textArea" />
+        <input type="hidden" id="textFormaEntrega" name="textFormaEntrega" />
+        <input type="hidden" id="textFormaNotificacion" name="textFormaNotificacion" />
+        <input type="hidden" id="textNacionalidad" name="textNacionalidad" />
+
+        <br><br><br><br><br>
+        <div>
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Datos del Solicitante</b>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Tipo de persona:
+            </div>
+            <div class="dt k1">
+                <select id="ddlTipoPersona" name="cCodTipoPersona">
+                    <option value="-">-- SELECCIONAR --</option>
+                    <option value="1">NATURAL</option>
+                    <option value="2">JURÍDICA</option>
+                </select>
+            </div>
+            <div id="divTipoPersona" class="dt"></div>
+        </div>
+
+        <div id="divCajaMenor" class="linefiltro floatleft" style="display: none;">
+            <div class="dt lbl-label">
+                ¿Es menor de edad?:
+            </div>
+            <div class="dt k1">
+                <input type="radio" style="width: auto; margin-right: 5px; margin-left: 20px; margin-top: 0px;"
+                    id="radioMenorSi" name="vMenor" value="SI" />
+                <span style="font-family: Segoe UI, Verdana, Helvetica, sans-serif; font-size: 12px;"> Si </span>
+                <input type="radio" style="width: auto; margin-right: 5px; margin-left: 20px; margin-top: 0px;"
+                    id="radioMenorNo" name="vMenor" value="NO" />
+                <span style="font-family: Segoe UI, Verdana, Helvetica, sans-serif; font-size: 12px;"> No </span>
+            </div>
+            <div id="divMenor" class="dt"></div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Tipo de documento:
+            </div>
+            <div class="dt k1" id="divTipoDocPer">
+                <select id="ddlTipoDocumento" name="vCodTdocide" style="width: 265px;">
+                    <option value="-">-- SELECCIONAR --</option>
+                </select>
+            </div>
+            <div id="divTipoDocumento" class="dt"></div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Nro. de documento:
+            </div>
+            <div class="dt k1">
+                <input id="txtNumDoc" name="vNumNrodoc" class="input upper" value="" maxlength="15" />
+            </div>
+            <div id="divNumDoc" class="dt"></div>
+            <div><input type="hidden" id="flgValidarServicio" name="flgValidarServicio" value="0" /></div>
+            <div><input type="button" id="buscarJuridica" value="Buscar" style="width: 60px; display: none;"
+                    class="butonn" /></div>
+        </div>
+
+        <div id="divPersonaJuridica" style="display: none;">
+            <div class="linefiltro floatleft">
+                <div class="dt lbl-label">
+                    Razón social:
+                </div>
+                <div class="dt">
+                    <input id="txtRazonSocial" name="vDescRazonSocial" class="input upper p1" maxlength="100"
+                        readonly="readonly" />
+                </div>
+                <div id="divRazonSocial" class="dt"></div>
+            </div>
+        </div>
+
+        <div id="divPersonaNatural" style="display: none;">
+            <div class="linefiltro floatleft">
+                <div class="dt lbl-label">
+                    Apellido paterno:
+                </div>
+                <div class="dt k1">
+                    <input id="txtApePat" name="vDescApePaterno" class="input upper" maxlength="30" value="" />
+                </div>
+                <div id="divApePat" class="dt"></div>
+            </div>
+            <div class="linefiltro floatleft">
+                <div class="dt lbl-label">
+                    Apellido materno:
+                </div>
+                <div class="dt k1">
+                    <input id="txtApeMat" name="vDescApeMaterno" class="input upper" maxlength="30" value="" />
+                </div>
+                <div id="divApeMat" class="dt"></div>
+            </div>
+            <div class="linefiltro floatleft">
+                <div class="dt lbl-label">
+                    Nombre(s):
+                </div>
+                <div class="dt k1">
+                    <input id="txtNombre" name="vDescApeNombres" class="input upper" maxlength="30" value="" />
+                </div>
+                <div id="divNombre" class="dt"></div>
+            </div>
+            <div class="linefiltro floatleft" id="divBotonValidarReniec" style="padding-bottom:30px; display: none;">
+                <div class="dt lbl-label" style="width: 428px;">
+                    <b> Si usted desea validar sus datos, dar clic aquí</b>
+                </div>
+                <div class="">
+                    <input type="button" id="buscarDato" value="Validar con RENIEC" class="butonn"
+                        style="margin-left: 5%;" />
+                    <input type="button" id="buscarDatoMigraciones" value="Validar con MIGRACIONES" class="butonn"
+                        style="margin-left: 5%;width: 196px;" />
+                </div>
+                <div class="" style="width: 100%;margin-top: 1%;margin-left: 17%;">
+                    Nota: Los datos consignados, deben ser de acuerdo al documento de identidad vigente.
+                </div>
+            </div>
+            <input type="hidden" id="txtGenero" name="vRegGenero" class="input upper" maxlength="30" value=""
+                readonly="readonly" />
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Departamento:
+            </div>
+            <div class="dt k1" id="divSelectDepartamento">
+                <select id="ddlDepartamento" name="vCoddep" onchange="changeDepartamento();">
+                    <option value="-">-- SELECCIONAR --</option>
+                    <option value="01">AMAZONAS</option>
+                    <option value="02">ANCASH</option>
+                    <option value="03">APURIMAC</option>
+                    <option value="04">AREQUIPA</option>
+                    <option value="05">AYACUCHO</option>
+                    <option value="06">CAJAMARCA</option>
+                    <option value="07">CALLAO</option>
+                    <option value="08">CUSCO</option>
+                    <option value="09">HUANCAVELICA</option>
+                    <option value="10">HUANUCO</option>
+                    <option value="11">ICA</option>
+                    <option value="12">JUNIN</option>
+                    <option value="13">LA LIBERTAD</option>
+                    <option value="14">LAMBAYEQUE</option>
+                    <option value="15">LIMA</option>
+                    <option value="16">LORETO</option>
+                    <option value="17">MADRE DE DIOS</option>
+                    <option value="18">MOQUEGUA</option>
+                    <option value="19">PASCO</option>
+                    <option value="20">PIURA</option>
+                    <option value="21">PUNO</option>
+                    <option value="22">SAN MARTIN</option>
+                    <option value="23">TACNA</option>
+                    <option value="24">TUMBES</option>
+                    <option value="25">UCAYALI</option>
+                </select>
+            </div>
+            <div id="divDepartamento" class="dt"></div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Provincia:
+            </div>
+            <div class="dt k1" id="divSelectProvincia">
+                <select id="ddlProvincia" name="vCodpro" onchange="changeProvincia();">
+                    <option value="-">-- SELECCIONAR -- </option>
+                </select>
+            </div>
+            <div id="divProvincia" class="dt"></div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Distrito:
+            </div>
+            <div class="dt k1" id="divSelectDistrito">
+                <select id="ddlDistrito" name="vCoddis" onchange="changeDistrito();">
+                    <option value="-">-- SELECCIONAR -- </option>
+                </select>
+            </div>
+            <div id="divDistrito" class="dt"></div>
+        </div>
+
+        <div class="linefiltro floatleft" style="padding-bottom: 20px">
+            <div class="dt lbl-label">
+                Dirección:
+            </div>
+            <div class="dt">
+                <input id="txtDomicilio" name="vDesDireccion" class="input upper p1" maxlength="100" />
+            </div>
+            <div class="dt lbl-label"
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                (Av./Calle/JR/PSJ – N°/DPTO/INT – URBANIZACIÓN)
+            </div>
+            <div id="divDomicilio" class=""></div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Información Solicitada</b>
+        </div>
+
+        <div class="linefiltro floatleft k2">
+            <div class="dt lbl-label">
+                Pedido concreto y preciso de información:
+            </div>
+            <div class="dt ">
+                <textarea id='txtDescripcion' name="vDesSolicitud" class='upper cssArea q1' maxlength='499' rows='5'
+                    cols="1"></textarea>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label"></div>
+            <div class="dt div_top"
+                style="font-size: 13px !important;font-weight: bold !important;color: #FF3333 !important;">
+                <div class="lbl-Contador">
+                    <label id="lblContador"
+                        style="font-size: 13px !important;font-weight: bold !important;color: #FF3333 !important;"></label>
+                </div>
+                &nbsp;&nbsp;&nbsp;caracteres disponibles y mínimo 15 caracteres.
+                <br>
+                <div id="divDescripcion" class="dt"></div>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Adjuntar archivo (Opcional):
+            </div>
+            <div class="dt">
+                <form id="upload-form" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="numdocfile" name="numdocfile">
+                    <input type="hidden" id="extensionFile" name="extensionFile">
+                    <input type="file" style="border: none;" id="file" name="file" class="input upper p1"
+                        accept=".pdf, .doc, .docx, .xls, .xlsx, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                </form>
+            </div>
+            <div id="adjuntoArchivoRequired" class="dt"></div>
+        </div>
+
+        <div class="dt lbl-label"
+            style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 4px;font-size: 13px;font-weight: bold;color: #FF3333;">
+            (Formato permitido: PDF, WORD, EXCEL; Peso máximo: 5MB)
+        </div>
+
+        <div class="linefiltro floatleft">
+            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forma o Medio de entrega de Información</b>
+        </div>
+
+        <div class="linefiltro floatleft" style="width: 100%;">
+            <div class="dt lbl-label">
+                Medio de entrega:
+            </div>
+            <div class="dt k1" id="divFormaEntrega">
+                <select id="ddlFormaEntrega" name="vCodFormasolicitada">
+                    <option value="-">-- SELECCIONAR --</option>
+                    <option value="1">COPIAS SIMPLES</option>
+                    <option value="2">CD/DVD</option>
+                    <option value="3">MEMORIA USB</option>
+                    <option value="4">CORREO ELECTRÓNICO</option>
+                    <option value="5">VISUALIZACIÓN DIRECTA</option>
+                    <option value="6">VENTANILLA ÚNICA</option>
+                    <option value="7">MENSAJE DE TEXTO (SMS)</option>
+                    <option value="8">OTROS</option>
+                </select>
+            </div>
+            <div id="divFormaEntregaRequired" class="dt"></div>
+            <div id="divSelectorOtrosEntrega" style="display: none;">
+                <div class="dt">Otros:</div>
+                <div class="dt k1" id="divOtrosEntrega">
+                    <input id="vOtrosEntrega" name="vOtrosEntrega" class="input upper" maxlength="150" />
+                </div>
+                <div id="divOtrosMedioEntrega" class="dt"></div>
+            </div>
+            <div class="dt lbl-label"
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                (Si no se indica, se entrega a través de copias simples, reguladas en el Decreto Supremo N°
+                164-2020-PCM)
+            </div>
+        </div>
+
+        <div class="lineaAzul subTitulo" style="margin-top: 3%;">
+            <b>+ &nbsp;</b> REQUISITOS OPCIONALES DE LA SOLICITUD:
+        </div>
+
+        <div id="divUOrganica">
+            <div class="linefiltro floatleft" style="margin-bottom: 33px;">
+                <div class="dt lbl-label">
+                    Dependencia que posee la información:
+                </div>
+                <div class="dt" id="divUO">
+                    <select id="ddlUnidadOrganica" class="q1">
+                        <option value="-">-- SELECCIONAR --</option>
+                        <option value="1">OFICINA GENERAL DE ADMINISTRACIÓN</option>
+                        <option value="2">OFICINA GENERAL DE ASESORÍA JURÍDICA</option>
+                        <option value="3">OFICINA GENERAL DE PLANEAMIENTO Y PRESUPUESTO</option>
+                        <option value="4">OFICINA GENERAL DE TECNOLOGÍAS DE LA INFORMACIÓN</option>
+                        <option value="5">OFICINA GENERAL DE RECURSOS HUMANOS</option>
+                        <option value="6">OFICINA DE IMAGEN INSTITUCIONAL</option>
+                        <option value="7">OFICINA DE COMUNICACIONES</option>
+                        <option value="8">OFICINA DE ATENCIÓN AL CIUDADANO Y GESTIÓN DOCUMENTARIA</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft" style="height: 100px;">
+            <div class="dt lbl-label">
+                Datos que propicie la localización o facilite la búsqueda de la información solicitada:
+            </div>
+            <div class="dt ">
+                <textarea id='txtBusquedaInfo' name="vDesBusquedaInf" class='upper cssArea q1'
+                    style="height: 100px !important;" maxlength='99' rows='3' cols="1"></textarea>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label"></div>
+            <div class="dt div_top">
+                <div class="lbl-Contador" style="padding-top: 5px;">
+                    <label id="lblContador2"></label>
+                </div>
+                &nbsp;&nbsp;&nbsp;caracteres disponibles y mínimo 15 caracteres.
+                <br>
+                <div id="divBusquedaInfo" class="dt"></div>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft">
+            <div class="dt lbl-label">
+                Teléfono:
+            </div>
+            <div class="dt k1">
+                <input id="txtTelefono" name="vNumTelefono" class="input upper" maxlength="7" />
+            </div>
+            <div id="divTelefono" class="dt"></div>
+            <div class="dt lbl-label"
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                (Es opcional, pero podría optimizar la atención de tu solicitud)
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft" style="margin-top: 3%;">
+            <div class="dt lbl-label">
+                Celular:
+            </div>
+            <div class="dt k1">
+                <input id="txtCelular" name="vNumCelular" class="input upper" maxlength="9" />
+            </div>
+            <div id="divCelular" class="dt"></div>
+            <div class="dt lbl-label"
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                (obligatorio si se ha autorizado como modalidad de notificación o entrega de la información)
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+            <div class="dt lbl-label">
+                Correo Electrónico:
+            </div>
+            <div class="dt">
+                <input id="txtEmail" name="vDesCorreo" class="input upper p1" maxlength="45" style="width: 233px;" />
+            </div>
+            <div id="divEmail" class="dt"></div>
+            <div class="dt lbl-label"
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                (obligatorio si se ha autorizado como modalidad de notificación o entrega de la información)
+            </div>
+        </div>
+
+        <div id="ocultarPersonaJuridica" style="display: none;">
+            <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Sexo:
+                </div>
+                <div class="dt k1" id="divSelectSexo">
+                    <select id="vSexo" name="vSexo" style="width: 100px;">
+                        <option value="-">-- SELECCIONAR --</option>
+                        <option value="M">MASCULINO</option>
+                        <option value="F">FEMENINO</option>
+                    </select>
+                </div>
+                <div id="divSexo" class="dt"></div>
+            </div>
+
+            <div class="linefiltro floatleft" style="margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Edad:
+                </div>
+                <div class="dt k1">
+                    <input id="vEdad" name="vEdad" class="input upper" maxlength="3" style="width: 18%" />
+                </div>
+                <div id="divCelular" class="dt"></div>
+            </div>
+
+            <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Grupo étnico:
+                </div>
+                <div class="dt k1" id="divSelectGrupoEtnico">
+                    <select id="vGrupoEtnico" name="vGrupoEtnico" style="width: 100px;">
+                        <option value="-">-- SELECCIONAR --</option>
+                        <option value="1">NEGRO</option>
+                        <option value="2">BLANCO</option>
+                        <option value="3">MESTIZO</option>
+                        <option value="4">OTROS</option>
+                    </select>
+                </div>
+                <div id="divGrupoEtnico" class="dt"></div>
+                <div id="divSelectorOtrosGrupoEtnico" style="display: none;">
+                    <div class="dt">Otros:</div>
+                    <div class="dt k1" id="divOtrosGrupoEtnico">
+                        <input id="vOtrosGrupoEtnico" name="vOtrosGrupoEtnico" class="input upper" maxlength="50" />
+                        <span style="font-size: 15px;font-weight: bold;color: #FF3333; ">(Ej.: Quechua, Aymara,
+                            etc.)</span>
+                    </div>
+                    <div id="divOtrosGrupoEtnico" class="dt"></div>
+                </div>
+            </div>
+
+            <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Discapacidad:
+                </div>
+                <div class="dt k1" id="divDiscapacidad">
+                    <input type="checkbox" id="cDiscapacidad" name="cDiscapacidad">
+                    <input type="hidden" id="valorDiscapacidad" name="valorDiscapacidad" value="0">
+                </div>
+                <div id="divDiscapacidad" class="dt"></div>
+            </div>
+
+            <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Idioma(Lengua Materna):
+                </div>
+                <div class="dt k1" id="divSelectLenguaMaterna">
+                    <select id="vLenguaMaterna" name="vLenguaMaterna" style="width: 100px;">
+                        <option value="-">-- SELECCIONAR --</option>
+                        <option value="1">ESPAÑOL</option>
+                        <option value="2">QUECHUA</option>
+                        <option value="3">AYMARA</option>
+                        <option value="4">OTROS</option>
+                    </select>
+                </div>
+                <div id="divLenguaMaterna" class="dt"></div>
+
+                <div id="divSelectorOtrosLenguaMaterna" style="display: none;">
+                    <div class="dt">Otros:</div>
+                    <div class="dt k1" id="divOtrosLenguaMaterna">
+                        <input id="vOtrosLenguaMaterna" name="vOtrosLenguaMaterna" class="input upper" maxlength="50" />
+                        <span style="font-size: 15px;font-weight: bold;color: #FF3333; ">(Ej.: Shipibo, Ashaninka,
+                            etc.)</span>
+                    </div>
+                    <div id="divOtrosLenguaMaterna" class="dt"></div>
+                </div>
+            </div>
+
+            <div class="linefiltro floatleft" style="width: 100%;margin-top: 3%;">
+                <div class="dt lbl-label">
+                    Nacionalidad:
+                </div>
+                <div class="dt k1" id="divSelectNacionalidad">
+                    <select id="vNacionalidad" name="vNacionalidad" style="width: 100px;">
+                        <option value="-">-- SELECCIONAR --</option>
+                        <option value="PE">PERUANA</option>
+                        <option value="EX">EXTRANJERA</option>
+                    </select>
+                </div>
+                <div id="divNacionalidad" class="dt"></div>
+            </div>
+        </div>
+
+        <div class="lineaAzul subTitulo" style="margin-top: 3%;">
+            <b>+ &nbsp;</b> MODALIDAD DE NOTIFICACIÓN:
+        </div>
+
+        <div class="linefiltro floatleft" style="width: 100%;margin-bottom: 33px;">
+            <div class="dt lbl-label">
+                Medio de notificación:
+            </div>
+            <div class="dt k1" id="divFormaNotificacion">
+                <select id="ddlFormaNotificacion" name="vCodFormaNotsolicitada">
+                    <option value="-">-- SELECCIONAR --</option>
+                    <option value="1">CORREO ELECTRÓNICO</option>
+                    <option value="2">MENSAJE DE TEXTO (SMS)</option>
+                    <option value="3">VENTANILLA ÚNICA</option>
+                    <option value="4">OTROS</option>
+                </select>
+            </div>
+            <div id="divFormaNotificacionRequired" class="dt"></div>
+            <div id="divSelectorOtrosNotificacion" style="display: none;">
+                <div class="dt">Otros:</div>
+                <div class="dt k1" id="divOtrosNotificacion">
+                    <input id="vOtrosNotificacion" name="vOtrosNotificacion" class="input upper" maxlength="150" />
+                </div>
+                <div id="divOtrosMedionNotifica" class="dt"></div>
+            </div>
+        </div>
+
+        <div class="linefiltro floatleft e2"></div>
+
+        <div id="divGrabar" class="linefiltro floatleft">
+            <center>
+                <input type="button" id="btngrabar" value="Enviar Solicitud" class="butonn top" />
+            </center>
+        </div>
+
+        <div id="divMsjRespuesta"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
