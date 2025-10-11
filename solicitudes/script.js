@@ -424,38 +424,10 @@ function enviarSolicitud() {
 function generarPDF() {
     // En un caso real, aquí se usaría una librería como jsPDF
     // Para este ejemplo, simulamos la generación del PDF
-
-    const datos = {
-        tipoPersona: document.getElementById('ddlTipoPersona').options[document.getElementById('ddlTipoPersona').selectedIndex].text,
-        tipoDocumento: document.getElementById('ddlTipoDocumento').options[document.getElementById('ddlTipoDocumento').selectedIndex].text,
-        numeroDocumento: document.getElementById('txtNumDoc').value,
-        nombres: document.getElementById('txtNombre').value,
-        apellidoPaterno: document.getElementById('txtApePat').value,
-        apellidoMaterno: document.getElementById('txtApeMat').value,
-        departamento: document.getElementById('ddlDepartamento').options[document.getElementById('ddlDepartamento').selectedIndex].text,
-        provincia: document.getElementById('ddlProvincia').options[document.getElementById('ddlProvincia').selectedIndex].text,
-        distrito: document.getElementById('ddlDistrito').options[document.getElementById('ddlDistrito').selectedIndex].text,
-        direccion: document.getElementById('txtDomicilio').value,
-        descripcion: document.getElementById('txtDescripcion').value,
-        formaEntrega: document.getElementById('ddlFormaEntrega').options[document.getElementById('ddlFormaEntrega').selectedIndex].text,
-        formaNotificacion: document.getElementById('ddlFormaNotificacion').options[document.getElementById('ddlFormaNotificacion').selectedIndex].text,
-        telefono: document.getElementById('txtTelefono').value,
-        celular: document.getElementById('txtCelular').value,
-        email: document.getElementById('txtEmail').value
-    };
+    const datos = recopilarDatosFormulario();
 
     // En un caso real, aquí se generaría el PDF con los datos
     console.log('Datos para el PDF:', datos);
-
-    // Simular descarga del PDF
-    //alert('PDF generado con los datos del formulario. En una implementación real, se descargaría el archivo.');
-
-    // Para una implementación real con jsPDF:
-
-    //const { jsPDF } = window.jspdf;
-    //const doc = new jsPDF();
-
-    //const datos = recopilarDatosFormulario();
 
     // Crear instancia de jsPDF
     const { jsPDF } = window.jspdf;
@@ -535,6 +507,7 @@ function generarPDF() {
     const fechaHora = ahora.toLocaleDateString('es-PE') + ' ' + ahora.toLocaleTimeString('es-PE', {
         hour: '2-digit',
         minute: '2-digit',
+        second: '2-digit',
         hour12: false
     });
 
@@ -584,35 +557,26 @@ function generarPDF() {
     const busquedaLines = doc.splitTextToSize(datos.busquedaInfo || 'No especificado', pageWidth - marginLeft - marginRight);
     doc.text(busquedaLines, marginLeft, yPosition);
     yPosition += (busquedaLines.length * 5) + 8;
-    /* if (datos.busquedaInfo && datos.busquedaInfo.trim() !== '') {
-        doc.setFont('helvetica', 'bold');
-        doc.text('Datos que propicien a la localización o faciliten busqueda:', marginLeft, yPosition);
-        yPosition += 4;
 
-        doc.setFont('helvetica', 'normal');
-        const busquedaLines = doc.splitTextToSize(datos.busquedaInfo, pageWidth - marginLeft - marginRight);
-        doc.text(busquedaLines, marginLeft, yPosition);
-        yPosition += (busquedaLines.length * 5) + 8;
-    } */
-
-    // Contacto en línea horizontal
-    const contactoY = yPosition;
+    // Contacto en columna vertical (formato manual)
     doc.setFont('helvetica', 'bold');
-    doc.text('Celular:', marginLeft, contactoY);
+    doc.text('Celular:', marginLeft, yPosition);
     doc.setFont('helvetica', 'normal');
-    doc.text(datos.celular || 'No especificado', marginLeft + 20, contactoY);
+    doc.text(datos.celular || 'No especificado', marginLeft + 60, yPosition);
+    yPosition += 6;
 
     doc.setFont('helvetica', 'bold');
-    doc.text('Telefono:', marginLeft + 80, contactoY);
+    doc.text('Teléfono:', marginLeft, yPosition);
     doc.setFont('helvetica', 'normal');
-    doc.text(datos.telefono || 'No especificado', marginLeft + 105, contactoY);
+    doc.text(datos.telefono || 'No especificado', marginLeft + 60, yPosition);
+    yPosition += 6;
 
     doc.setFont('helvetica', 'bold');
-    doc.text('Email:', marginLeft + 150, contactoY);
+    doc.text('Email:', marginLeft, yPosition);
     doc.setFont('helvetica', 'normal');
-    doc.text(datos.email || 'No especificado', marginLeft + 170, contactoY);
+    doc.text(datos.email || 'No especificado', marginLeft + 60, yPosition);
+    yPosition += 8;
 
-    yPosition += 12;
 
     // Solo mostrar datos adicionales para personas naturales
     if (datos.tipoPersona === 'NATURAL') {
@@ -699,18 +663,3 @@ function recopilarDatosFormulario() {
     };
 }
 
-
-
-
-
-
-
-/* doc.text('SOLICITUD DE ACCESO A LA INFORMACIÓN PÚBLICA', 20, 20);
-doc.text(`Tipo de persona: ${datos.tipoPersona}`, 20, 30);
-doc.text(`Tipo de documento: ${datos.tipoDocumento}`, 20, 40);
-doc.text(`Número de documento: ${datos.numeroDocumento}`, 20, 50);
-// ... más campos
-
-doc.save('solicitud_acceso_informacion.pdf');
-    
-} */
