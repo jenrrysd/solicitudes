@@ -72,9 +72,9 @@
         <input type="hidden" id="textFormaNotificacion" name="textFormaNotificacion" />
         <input type="hidden" id="textNacionalidad" name="textNacionalidad" />
 
-        <br><br><br><br><br>
         <div>
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Datos del Solicitante</b>
+            <b>Datos del Solicitante</b>
+            <br><br>
         </div>
 
         <div class="linefiltro floatleft">
@@ -113,6 +113,7 @@
             <div class="dt k1" id="divTipoDocPer">
                 <select id="ddlTipoDocumento" name="vCodTdocide" style="width: 265px;">
                     <option value="-">-- SELECCIONAR --</option>
+                    <option value='2'>REGISTRO ÚNICO DE CONTRIBUYENTE</option>
                 </select>
             </div>
             <div id="divTipoDocumento" class="dt"></div>
@@ -137,8 +138,8 @@
                     Razón social:
                 </div>
                 <div class="dt">
-                    <input id="txtRazonSocial" name="vDescRazonSocial" class="input upper p1" maxlength="100"
-                        readonly="readonly" />
+                    <input id="txtRazonSocial" name="vDescRazonSocial" class="input upper p1" maxlength="100" />
+                    Ingresar el nombre de la empresa
                 </div>
                 <div id="divRazonSocial" class="dt"></div>
             </div>
@@ -172,7 +173,7 @@
                 </div>
                 <div id="divNombre" class="dt"></div>
             </div>
-            <div class="linefiltro floatleft" id="divBotonValidarReniec" style="padding-bottom:30px; display: none;">
+            <!-- <div class="linefiltro floatleft" id="divBotonValidarReniec" style="padding-bottom:30px; display: none;">
                 <div class="dt lbl-label" style="width: 428px;">
                     <b> Si usted desea validar sus datos, dar clic aquí</b>
                 </div>
@@ -185,7 +186,7 @@
                 <div class="" style="width: 100%;margin-top: 1%;margin-left: 17%;">
                     Nota: Los datos consignados, deben ser de acuerdo al documento de identidad vigente.
                 </div>
-            </div>
+            </div> -->
             <input type="hidden" id="txtGenero" name="vRegGenero" class="input upper" maxlength="30" value=""
                 readonly="readonly" />
         </div>
@@ -259,14 +260,15 @@
                 <input id="txtDomicilio" name="vDesDireccion" class="input upper p1" maxlength="100" />
             </div>
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (Av./Calle/JR/PSJ – N°/DPTO/INT – URBANIZACIÓN)
             </div>
             <div id="divDomicilio" class=""></div>
         </div>
 
         <div class="linefiltro floatleft">
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Información Solicitada</b>
+            <b>Información Solicitada</b>
+            <br><br>
         </div>
 
         <div class="linefiltro floatleft k2">
@@ -282,10 +284,10 @@
         <div class="linefiltro floatleft">
             <div class="dt lbl-label"></div>
             <div class="dt div_top"
-                style="font-size: 13px !important;font-weight: bold !important;color: #FF3333 !important;">
+                style="font-size: 13px !important; margin-top: 1px; font-weight: bold !important;color: #FF3333 !important;">
                 <div class="lbl-Contador">
                     <label id="lblContador"
-                        style="font-size: 13px !important;font-weight: bold !important;color: #FF3333 !important;"></label>
+                        style="font-size: 13px !important; margin-top: 1px; font-weight: bold !important;color: #FF3333 !important;"></label>
                 </div>
                 &nbsp;&nbsp;&nbsp;caracteres disponibles y mínimo 15 caracteres.
                 <br>
@@ -309,12 +311,14 @@
         </div>
 
         <div class="dt lbl-label"
-            style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 4px;font-size: 13px;font-weight: bold;color: #FF3333;">
+            style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 1px;font-size: 13px;font-weight: bold;color: #FF3333;">
             (Formato permitido: PDF, WORD, EXCEL; Peso máximo: 5MB)
         </div>
 
         <div class="linefiltro floatleft">
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Forma o Medio de entrega de Información</b>
+            <br><br>
+            <b>Forma o Medio de entrega de Información</b>
+            <br><br>
         </div>
 
         <div class="linefiltro floatleft" style="width: 100%;">
@@ -343,13 +347,14 @@
                 <div id="divOtrosMedioEntrega" class="dt"></div>
             </div>
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (Si no se indica, se entrega a través de copias simples, reguladas en el Decreto Supremo N°
                 164-2020-PCM)
             </div>
         </div>
 
-        <div class="lineaAzul subTitulo" style="margin-top: 3%;">
+        <div class="lineaAzul subTitulo" style="margin-top: 2px;">
+            <br><br>
             <b>+ &nbsp;</b> REQUISITOS OPCIONALES DE LA SOLICITUD:
         </div>
 
@@ -405,7 +410,7 @@
             </div>
             <div id="divTelefono" class="dt"></div>
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (Es opcional, pero podría optimizar la atención de tu solicitud)
             </div>
         </div>
@@ -419,7 +424,7 @@
             </div>
             <div id="divCelular" class="dt"></div>
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (obligatorio si se ha autorizado como modalidad de notificación o entrega de la información)
             </div>
         </div>
@@ -433,7 +438,7 @@
             </div>
             <div id="divEmail" class="dt"></div>
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: -12px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (obligatorio si se ha autorizado como modalidad de notificación o entrega de la información)
             </div>
         </div>
@@ -540,8 +545,9 @@
             </div>
         </div>
 
-        <div class="lineaAzul subTitulo" style="margin-top: 3%;">
-            <b>+ &nbsp;</b> MODALIDAD DE NOTIFICACIÓN:
+        <div class="lineaAzul subTitulo" style="margin-top: 3px;">
+            <br><br>
+            <b>+ &nbsp; MODALIDAD DE NOTIFICACIÓN:
         </div>
 
         <div class="linefiltro floatleft" style="width: 100%;margin-bottom: 33px;">

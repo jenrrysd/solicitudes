@@ -1,0 +1,340 @@
+table
+{
+    text-align:left;
+    margin:auto;
+}
+/*
+div  
+{
+ border-radius: 5px; 
+ -moz-border-radius:5px;  
+ -webkit-border-radius:5px;  
+}
+*/
+.hide  { display: none; }
+
+a { cursor:pointer; text-decoration: none;}
+
+img { border: 0; max-width: initial;}
+
+table.grid
+{
+    /*border: 1px solid #96B6E5;*/
+    width: 721px;
+    padding: 0;
+    margin: 0;
+}
+
+table.gridprov
+{
+    /*border: 1px solid #96B6E5;*/
+    padding: 0;
+    margin: 0;
+}
+
+/* table tr{border-top: 1px solid ;}*/
+
+.cel_cab
+{
+    background: url('../img/b_tabla_h.html') repeat-x ;
+    border-right: 1px solid #7F9DB9;
+    text-align: center;
+}
+
+/* tamaño cabecera*/
+.a{ width:20px;}
+.b{ width:40px;}
+.c{ width:70px;}
+.d{ width:600px;}
+.e{ width:140px;}
+
+            
+
+.cel_row 
+{
+    background-color: #FFFFFF;
+    color:Black;
+    border-bottom: 1px solid #E4E4E4;
+    
+}
+
+.cel_row:hover
+{
+    /*background-color: #FFFFE0;
+    color:#2A7FD0;*/
+    background-color: #3D80DF;
+    color:#FFFFFF;
+    border: 1px solid #03476F;
+    
+}
+
+.celdas, .celdas_n 
+{
+    border-right: 1px solid #7F9DB9;
+    border-bottom: 1px solid #E4E4E4;
+    text-align: center;
+}
+
+.celdas_n 
+{
+    text-align: right;
+}
+
+#pnltabla
+{
+  display:none;
+}
+
+#dtgResult
+{
+  
+}
+
+#BtnAccion
+{
+ height:25px;
+ text-align:left;
+ /*width:350px;*/
+}
+/*#btAprobar, #btRechaza { float:right;}*/
+
+#selTodos { float:left;}
+
+#view_data
+{
+    border-left: 1px solid #96B6E5;
+    border-right: 1px solid #96B6E5;
+    border-bottom: 1px solid #96B6E5;
+    width: 720px;
+}
+
+.text-plomo3
+{
+    color :#144088;
+    padding-top: 5px;
+    height:40px;
+    margin-left: 65px;
+}
+
+/* Menu */
+
+.cat_cab
+{
+    background: url('../img/b_title_h.html') repeat-x ;
+    color: #3C5B9F;
+    height: 40px;
+    text-align: center;
+    border-left: 1px solid #96B6E5;
+    border-right: 1px solid #96B6E5;
+    border-radius: 5px 5px 0 0;
+}
+
+.opciones_m
+{
+    border-left: 1px solid #96B6E5;
+    border-right: 1px solid #96B6E5;
+    border-bottom: 1px solid #96B6E5;
+    border-radius: 0px 0px 5px 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.m_opcion{width:100%;}
+/* Detalle Requerimientos */
+#wrapper_cab, #wrapper_det, #wrapper_est, #wrapper_cer , #wrapper_arc
+{
+    border-left: 1px solid #96B6E5;
+    border-right: 1px solid #96B6E5;
+    border-bottom: 1px solid #96B6E5;
+}
+
+#wrapper_cab {     height: 120px;}
+#cab_t, #det_t, #est_t, #cer_t , #arc_t 
+{
+    /* background: url('../img/b_title_h.png') repeat-x ; */
+    background-image: linear-gradient(to bottom, #0088CC, #1BA1E2);
+    height: 20px;
+    text-align: center;
+    font-family: Calibri;
+}
+
+#cab_t p, #det_t p, #est_t p, #cer_t p, #arc_t p 
+{
+    color : #FFFFFF;
+    font-size: 16px;
+    font-style: italic;
+    padding-top:8px;
+}
+
+#datos p
+{
+    float: left;
+    width: 65px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+#datos .DatCab
+{
+    font-family: calibri;
+    font-size: 10pt;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.num{ width: 40px;}
+.ann{ width: 40px;}
+.tip{ width: 120px;}
+.fec{ width: 80px;}
+.des{ width: 450px;}
+.des2{ width: 650px;}
+.des3{ width: 300px;}
+
+.deta_cab, .esta_cab, .cer_cab, .arc_cab 
+{
+    background-color:#E4EBF6;
+    border-left:1px solid #7F9DB9;
+    border-top:1px solid #7F9DB9;
+    border-bottom:1px solid #7F9DB9;
+    text-align: center;
+}
+
+/* Cabecera Tabla Detalle Requerimiento*/
+#detalle, #estados, #certificados, #archivos { padding:5px;}
+
+.it{width: 20px;}
+.cd{width: 120px;}
+.de{width: 380px;}
+.pu{width: 50px; text-align:center;}
+.cn{width: 60px; text-align:center;}
+.sb{width: 70px; border-right:1px solid #7F9DB9;  text-align:center;}
+
+.deta_det, .esta_det, .cer_det, .arc_det 
+{
+    border-bottom: 1px solid #E4E4E4;
+    border-left:1px solid #7F9DB9;
+}
+
+/* Detalle Estados*/
+.es{width: 180px;}
+.fe{width: 160px;}
+.us{width: 180px; border-right:1px solid #7F9DB9;  text-align:center;}
+
+/* Cabecera Detalle Certificacion */
+.an {width: 40px;}
+.so {width: 80px;}
+.ce {width: 80px;}
+.fe2 {width: 80px;}
+.es {width: 100px;}
+.ob {width: 300px;border-right:1px solid #7F9DB9;  text-align:center;}
+
+/* Cabecera Detalle Archivos */
+.a_it {width: 40px;}
+.a_ti {width: 100px;}
+.a_as {width: 100px;}
+.a_ar {width: 60px;}
+.a_no {width: 300px;}
+.a_us {width: 80px; text-align:center;}
+.a_fe {width: 90px;border-right:1px solid #7F9DB9;  text-align:center;}
+
+
+/* Tamaño cabecera Consulta Proveedor*/
+.a1{ width:80px;}
+.b1{ width:120px;}
+.c1{ width:250px;}
+.d1{ width:400px;}
+.e1{ width:180px;}
+.f1{ width:180px;}
+.g1{ width:180px;}
+.h1{ width:180px;}
+.i1{ width:300px;}
+.j1{ width:180px;}
+
+/* Tamaño cabecera Consulta Proveedor - Documentos*/
+.a2{ width:60px;}
+.b2{ width:100px;}
+.c2{ width:50px;}
+.d2{ width:120px;}
+.e2{ width:60px;}
+.f2{ width:100px;}
+.g2{ width:100px;}
+.h2{ width:60px;}
+.i2{ width:80px;}
+.j2{ width:180px;}
+
+#DatosGen, #Botones, #DetalleReq, #EstadosReq, #CertiReq, #ArchivosReq 
+{
+    margin-bottom:10px;
+}
+
+table .personal { margin:0;}
+
+/* tamaño cabecera*/
+.g{ width:200px;}
+.h{ width:250px;}
+.i{ width:300px;}
+
+/*Asistencia */ 
+
+.a01{ width:20px;}
+.b01{ width:40px;}
+.c01{ width:50px;}
+.d01{ width:70px;}
+.e01{ width:90px;}
+.f01{ width:100px;}
+.g01{ width:120px;}
+.h01{ width:150px;}
+.i01{ width:180px;}
+.j01{ width:200px;}
+.k01{ width:250px;}
+.l01{ width:300px;}
+.m01{ width:350px;}
+.n01{ width:400px;}
+
+.textarea 
+{    
+    resize: none;
+    font-family: calibri;
+    font-size: 12px;    
+    width: 350px;
+    margin: 0;
+    padding: 0;
+}
+
+.EstiloBotones
+{    
+    Font-Size: 7pt;
+    Color: #3e759b;
+    text-decoration:none;
+}
+
+.labelbotones
+{   
+    float:right;
+    height:50px;
+    width:200px;
+}   
+
+.sigaofictr
+{
+    
+}
+
+.data-filtro
+{
+    width: 800px;
+    margin: 0
+}
+
+#cboOficina 
+{
+    margin-left: 20px;
+    width: 500px;
+}
+
+.cEmitido { color:red;}
+.cEnvJefe { color:blue;}
+.cEnvCoor { color:green;}
+.cEnvDefa { color:black;}

@@ -1,0 +1,620 @@
+
+
+/* Pag. principal */
+
+.divprincipal
+{
+    width:400px;
+    margin-top:50px;
+    height:180px;
+    margin-left:auto;
+    margin-right:auto;
+}   
+
+/* body */
+
+.upper
+{
+    text-transform:uppercase;
+}
+
+.lbl 
+{
+    text-align: right;
+    /*width: 264px;*/ 
+    /*font-family: 'Open Sans', sans-serif;*/ 
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+}
+
+.tab
+{
+    width: 65%;
+    margin: 0 auto;
+}
+
+select
+{
+    padding: 5px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    color: #555;    
+    font-size: 12px;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+} 
+
+.linefiltro
+{
+    width: 720px;
+    margin-left: 1px;    
+    margin-top: 11px;
+    text-align: left;
+    height: 30px;
+}
+
+.floatleft{
+    float: left;        
+}
+
+.dt 
+{
+    float: left;
+    text-align: left; 
+    line-height: 28px; 
+    margin: 0 5px 10px 10px;
+    border: 0px solid red;    
+}
+
+.input
+{
+    padding: 5px;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    color: #555;    
+    font-size: 12px;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+}
+
+#label-required, .label-required
+{
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 15px;
+    text-align: left; 
+    /*width: 190px; */
+    line-height: 28px; 
+    margin: 0 5px 10px 0px;
+    border: 0px solid red;    
+    color: red;
+}
+
+
+.divRegresar > a
+{
+    text-decoration: none !important;
+}
+
+.divRegresar
+{ 
+    margin-bottom:5px;
+    margin-left:50px;    
+    margin-top:0px;
+    text-align:left;
+    width: 300px;    
+    height: 18px;
+    font-size: 13px;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    text-decoration: none !important;
+}
+
+.table th, .table td {
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif !important;
+}
+
+/* Pag. Gesti�n user */
+
+.a01{ width: 20px; }
+.b01{ width: 40px; }
+.c01{ width: 50px; }
+.d01{ width: 70px; }
+.e01{ width: 90px; }
+.f01{ width: 100px; }
+.g01{ width: 120px; }
+.h01{ width: 150px; }
+.i01{ width: 180px; }
+.j01{ width: 200px; }
+.k01{ width: 207px; }
+.l01{ width: 260px; }
+.m01{ width: 300px; }
+.n01{ width: 350px; }
+.o01{ width: 400px; }
+.p01{ width: 450px; }
+.q01{ width: 500px; }
+.r01{ width: 550px; }
+.s01{ width: 600px; }
+
+.buton{
+    background-color: #0178ba;
+    color: #fff;
+    padding: 2px;
+    border-radius: 4px;  
+    width: 102px; 
+    height: 35px; 
+    border: 0px;     
+}
+
+.imgAgregar
+{
+    background: url('../Img/btn_nuevo.html') no-repeat; 
+    border:none; 
+    width: 26px; 
+    height: 26px;  
+    margin-right: 29px;
+}
+
+/* Pag. Registrar user */
+
+.imgbutton
+{
+    background: url('../Img/buscar.html') no-repeat; 
+    border:none; 
+    width: 26px; 
+    height: 26px;
+}
+
+.butonn{
+    background-color: #0178ba;
+    color: #fff;
+    padding: 2px;
+    border-radius: 4px;  
+    width: 135px; 
+    height: 35px;      
+    border: 0px;
+}
+
+
+.input-butonn{
+    background-color: #0178ba;
+    color: #fff;
+    padding: 2px;
+    border-radius: 4px;  
+    width: 162px; 
+    height: 35px;      
+    border: 0px;
+}
+
+
+.lbl-width
+{
+    text-align: right;
+    width: 264px;     
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+}
+
+
+/* Gestionar solicitud */
+
+.th-label
+{
+    width: 230px;
+}
+
+.th-center
+{
+    line-height: 38px !important;
+    text-align: center !important;
+}
+
+.lblTitulo 
+{    
+    margin-left: 42%;
+    font-family: sans-serif;
+    font-size: 24px;
+    color: #2073b7;
+    margin-bottom: 15px;
+}
+
+.lblfecha
+{  
+    text-align: right;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* Form. solicitud*/
+
+.lineaAzul
+{
+    border-bottom: 1px #0178BA solid;
+    margin: 0 auto;
+    width: 1000px;
+   /* height: 40px;*/
+}
+
+.subTitulo
+{
+    text-align: left;  
+    margin-left:12px; 
+    font-size: 25.5px; 
+    font-weight: normal;
+    color:#0079BC; 
+    padding-top: 30px; 
+    height: 35px;
+    font-family: "Open Sans", sans-serif;
+    float: left;  
+    width: 86%;
+    margin-bottom: 18px;     
+}
+
+.lbl-label
+{
+    text-align: left;
+    padding-left: 10px;
+    width: 235px;     
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 15px;   
+    color: #333;
+}
+
+.lbl-detalle
+{
+    text-align: left; 
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 13px;   
+    color: #0178ba;  
+}
+
+.lbl-Buscar
+{
+    color: #0074bb;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lbl-solicitud
+{
+    text-align: right;
+    width: 80px;     
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+}
+
+.lbl-titulo
+{    
+    /*margin-left: 35%;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 18px;   
+    font-weight: bold;     
+    width: 300px;*/
+    margin-left: 35%;
+}
+
+.lbl-fecha
+{
+    margin-top: 30px;
+    font-size: 14px;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+}
+
+.lbl-expediente
+{
+    /*font-weight: bold;
+    font-size: 18px;*/
+    font-size: 20px;
+    color: #2073b7;
+    /* font-size: 15px; */
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-weight: 600;
+    /* margin-top: 11px; */
+}
+
+.buton-detalle{
+    background-color: #0178ba;
+    color: #fff;
+    padding: 2px;
+    border-radius: 4px;
+    width: 26px;
+    height: 24px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 0px;
+    border: 0px;
+}
+
+.div_top
+{
+    margin-top: -12px;
+    /*width: 500px;*/
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+}
+
+.lbl-domicilio
+{
+    font-size: 15px;
+	font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+	color: #0178ba;
+    margin-top: 17px;
+    
+}
+
+#lblContador
+{
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+    line-height: 29px; 
+}
+
+.lbl-Contador
+{    
+    width: 20px; 
+    float: left;
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 12px;   
+    color: #333;
+}
+
+.cssArea
+{    
+    resize: none;
+    font-family: calibri;
+    font-size: 12px;    
+    width: 500px;
+    height: 150px;
+    margin: 0;
+    padding: 0;
+}
+
+.cssEmailArea
+{    
+    resize: none;
+    font-family: calibri;
+    font-size: 14px;    
+    width: 500px;
+    height: 250px;
+    margin: 0;
+    padding: 0;
+}
+
+.file
+{
+    height: 22px !important;
+    line-height: 22px !important;
+}
+
+.a2{ height: 10px; }
+.h2{height: 42px;}
+.j2{height: 100px;}
+.k2{height: 150px;}
+.o2{height: 270px;}
+.p2{height: 315px;}
+
+.f1{ width: 100px; }
+.j1{ width: 222px; }
+.k1{ width: 224px; }
+.l1{ width: 245px; }
+.p1{ width: 332px; } /*400*/
+.q1{ width: 412px; }
+
+
+.table-stri tbody > tr:nth-child(2n-1) > td
+{
+    background-color: #fff ;
+}
+
+.pagerstyle td
+{
+    background-color: #fff !important;
+    border-color: #fff;
+    padding: 1px;    
+}
+
+
+.grid-font{
+    font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #f5f5f5;
+}
+
+.text-plomo2 {
+    color: #144088;
+    padding-top: 5px;
+    height: 40px;
+    margin-left: 210px !important;
+}
+
+/* Registrar SAIP */
+
+input[type="checkbox"] {
+    float: left;
+    width: 20px;
+}
+
+.grdCentrar 
+{
+    text-align: center !important;
+}
+
+.top
+{
+    margin-top: -30px;
+}
+
+.grdred
+{
+    color: red;
+}
+
+.rectangulo 
+{     
+    width: 32px;
+    height: 17px;
+    border:1px solid #afcde3;
+    /*background: #ffdfde;*/
+    border-radius: 2px;
+    float: left;
+}
+
+#divTitulo
+{
+    font-weight: normal;
+    color: #0079BC;
+    font-size: 20px;
+    text-align: center;
+    height: 38px;
+}
+
+
+
+/* Loading */
+
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #e8e8e8;
+    z-index: 99;
+}
+
+.LoadingLine {
+    width: 0;
+    height: 4px;
+    background: #d9442f;
+    position: fixed;
+    -webkit-animation-name: myfirst;
+    -webkit-animation-duration: 4s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: inherit;
+    -webkit-animation-play-state: running;
+    animation-name: myfirst;
+    /* animation-duration: 4s; */
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: inherit;
+    animation-play-state: running;
+}
+
+.modal-preload {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+}
+
+.modal-preload .circles {
+    height: 140px;
+    left: 50%;
+    margin-left: -70px;
+    margin-top: -70px;
+    position: absolute;
+    top: 50%;
+    width: 140px;
+}
+.circles {
+    height: 140px;
+    left: 50%;
+    margin-left: -70px;
+    margin-top: -70px;
+    position: absolute;
+    top: 50%;
+    width: 140px;
+}
+
+
+.modal-preload .circles .circle {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    animation: spinPulse 1s infinite ease-in-out;
+    -webkit-animation: spinPulse 1s infinite linear;
+    background-color: rgba(0,0,0,.2);
+    border-color: rgba(255,255,255,.9) transparent;
+    border-image: none;
+    border-radius: 100px;
+    border-style: solid;
+    border-width: 4px 5px;
+    box-shadow: 0 0 20px rgba(255,255,255,.4);
+    height: 95px;
+    margin: 0 auto;
+    opacity: .8;
+    position: relative;
+    width: 95px;
+}
+.circles .circle {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    animation: spinPulse 1s infinite ease-in-out;
+    -webkit-animation: spinPulse 1s infinite linear;
+    background-color: rgba(0,0,0,.2);
+    border-color: rgba(255,255,255,.9) transparent;
+    border-image: none;
+    border-radius: 100px;
+    border-style: solid;
+    border-width: 4px 5px;
+    box-shadow: 0 0 20px rgba(255,255,255,.4);
+    height: 95px;
+    margin: 0 auto;
+    opacity: .8;
+    position: relative;
+    width: 95px;
+}
+
+
+.modal-preload .mainLogo {
+    color: #fff;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+.mainLogo {
+    color: #fff;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.modal-preload .mainLogo .preloadEc {
+    display: block;
+    font-family: Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 36px auto 5px;
+    width: 50px;
+}
+.mainLogo .preloadEc {
+    display: block;
+    font-family: Helvetica;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 36px auto 5px;
+    width: 50px;
+}

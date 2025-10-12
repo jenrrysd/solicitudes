@@ -121,6 +121,84 @@ document.addEventListener('DOMContentLoaded', function () {
     inicializarEventos();
 });
 
+function inicializarEventos() {
+    // Evento para tipo de persona (solo si existe)
+    const ddlTipoPersona = document.getElementById('ddlTipoPersona');
+    if (ddlTipoPersona) {
+        ddlTipoPersona.addEventListener('change', function () {
+            cambiarTipoPersona(this.value);
+        });
+    }
+
+    // Evento para forma de entrega
+    const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
+    if (ddlFormaEntrega) {
+        ddlFormaEntrega.addEventListener('change', function () {
+            toggleOtrosEntrega(this.value);
+        });
+    }
+
+    // Evento para forma de notificación
+    const ddlFormaNotificacion = document.getElementById('ddlFormaNotificacion');
+    if (ddlFormaNotificacion) {
+        ddlFormaNotificacion.addEventListener('change', function () {
+            toggleOtrosNotificacion(this.value);
+        });
+    }
+
+    // Evento para grupo étnico
+    const vGrupoEtnico = document.getElementById('vGrupoEtnico');
+    if (vGrupoEtnico) {
+        vGrupoEtnico.addEventListener('change', function () {
+            toggleOtrosGrupoEtnico(this.value);
+        });
+    }
+
+    // Evento para lengua materna
+    const vLenguaMaterna = document.getElementById('vLenguaMaterna');
+    if (vLenguaMaterna) {
+        vLenguaMaterna.addEventListener('change', function () {
+            toggleOtrosLenguaMaterna(this.value);
+        });
+    }
+
+    // Evento para discapacidad
+    const cDiscapacidad = document.getElementById('cDiscapacidad');
+    if (cDiscapacidad) {
+        cDiscapacidad.addEventListener('change', function () {
+            document.getElementById('valorDiscapacidad').value = this.checked ? '1' : '0';
+        });
+    }
+
+    // Eventos para menor de edad (solo si existen)
+    const radioMenorSi = document.getElementById('radioMenorSi');
+    const radioMenorNo = document.getElementById('radioMenorNo');
+
+    if (radioMenorSi) {
+        radioMenorSi.addEventListener('change', function () {
+            if (this.checked) {
+                toggleCamposMenorEdad(true);
+            }
+        });
+    }
+
+    if (radioMenorNo) {
+        radioMenorNo.addEventListener('change', function () {
+            if (this.checked) {
+                toggleCamposMenorEdad(false);
+            }
+        });
+    }
+
+    // Evento para el botón de enviar
+    const btnGrabar = document.getElementById('btngrabar');
+    if (btnGrabar) {
+        btnGrabar.addEventListener('click', function () {
+            enviarSolicitud();
+        });
+    }
+}
+
 function inicializarFormulario() {
     // Inicializar contadores de caracteres
     actualizarContador('txtDescripcion', 'lblContador', 499);
@@ -139,7 +217,13 @@ function inicializarFormulario() {
     });
 }
 
-function inicializarEventos() {
+/* function inicializarEventos() {
+    // Agrega este evento en inicializarEventos()
+    document.getElementById('ddlTipoDocumento').addEventListener('change', function () {
+        document.getElementById('textTipoDocumento').value = this.options[this.selectedIndex].text;
+    });
+
+
     // Evento para tipo de persona
     document.getElementById('ddlTipoPersona').addEventListener('change', function () {
         cambiarTipoPersona(this.value);
@@ -170,21 +254,116 @@ function inicializarEventos() {
         document.getElementById('valorDiscapacidad').value = this.checked ? '1' : '0';
     });
 
+
+
+    // NUEVOS EVENTOS PARA MENOR DE EDAD
+    document.getElementById('radioMenorSi').addEventListener('change', function () {
+        if (this.checked) {
+            toggleCamposMenorEdad(true);
+        }
+    });
+
+    document.getElementById('radioMenorNo').addEventListener('change', function () {
+        if (this.checked) {
+            toggleCamposMenorEdad(false);
+        }
+    });
+
+
     // Evento para el botón de enviar
     document.getElementById('btngrabar').addEventListener('click', function () {
         enviarSolicitud();
     });
 }
-
-function inicializarTiposDocumento() {
+ */
+function toggleCamposMenorEdad(esMenor) {
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
-    const tiposDocumento = [
-        { value: "1", text: "DNI" },
-        { value: "4", text: "CARNET DE EXTRANJERIA" },
-        { value: "7", text: "PASAPORTE" },
-        { value: "A", text: "CEDULA DIPLOMATICA DE IDENTIDAD" },
-        { value: "0", text: "OTROS" }
-    ];
+    const txtNumDoc = document.getElementById('txtNumDoc');
+
+    if (!ddlTipoDocumento || !txtNumDoc) return;
+
+    if (esMenor) {
+        // Si es menor de edad, deshabilitar y limpiar campos
+        ddlTipoDocumento.disabled = true;
+        txtNumDoc.disabled = true;
+
+        // Establecer valores por defecto para menores
+        ddlTipoDocumento.value = '1'; // DNI
+        txtNumDoc.value = '';
+
+        // Agregar estilos visuales para indicar que está deshabilitado
+        ddlTipoDocumento.style.backgroundColor = '#f8f9fa';
+        ddlTipoDocumento.style.color = '#6c757d';
+        txtNumDoc.style.backgroundColor = '#f8f9fa';
+        txtNumDoc.style.color = '#6c757d';
+
+        // Limpiar errores de validación de estos campos
+        ocultarError('divTipoDocumento');
+        ocultarError('divNumDoc');
+
+        // Mostrar mensaje informativo
+        mostrarMensajeMenorEdad();
+    } else {
+        // Si no es menor de edad, habilitar campos
+        ddlTipoDocumento.disabled = false;
+        txtNumDoc.disabled = false;
+
+        // Restaurar estilos normales
+        ddlTipoDocumento.style.backgroundColor = '';
+        ddlTipoDocumento.style.color = '';
+        txtNumDoc.style.backgroundColor = '';
+        txtNumDoc.style.color = '';
+
+        // Ocultar mensaje informativo
+        ocultarMensajeMenorEdad();
+    }
+}
+
+function mostrarMensajeMenorEdad() {
+    // Crear o mostrar mensaje informativo
+    let mensajeDiv = document.getElementById('mensajeMenorEdad');
+    if (!mensajeDiv) {
+        mensajeDiv = document.createElement('div');
+        mensajeDiv.id = 'mensajeMenorEdad';
+        mensajeDiv.style.cssText = 'color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 12px;';
+        mensajeDiv.innerHTML = '<strong>Información:</strong> Para menores de edad, los datos del documento de identidad deben ser proporcionados por el representante legal.';
+
+        // Insertar después del campo de número de documento
+        const divNumDoc = document.getElementById('divNumDoc');
+        divNumDoc.parentNode.insertBefore(mensajeDiv, divNumDoc.nextSibling);
+    } else {
+        mensajeDiv.style.display = 'block';
+    }
+}
+
+function ocultarMensajeMenorEdad() {
+    const mensajeDiv = document.getElementById('mensajeMenorEdad');
+    if (mensajeDiv) {
+        mensajeDiv.style.display = 'none';
+    }
+}
+
+
+
+function inicializarTiposDocumento(tipoPersona = null) {
+    const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
+
+    // Determinar qué opciones mostrar según el tipo de persona
+    let tiposDocumento;
+    if (tipoPersona === '2') { // Persona jurídica
+        tiposDocumento = [
+            { value: "6", text: "REGISTRO UNICO DE CONTRIBUYENTES" },
+            //{ value: "0", text: "OTROS" }
+        ];
+    } else { // Persona natural o por defecto
+        tiposDocumento = [
+            { value: "1", text: "DOCUMENTO NACIONAL DE IDENTIDAD" },
+            { value: "4", text: "CARNET DE EXTRANJERIA" },
+            { value: "7", text: "PASAPORTE" }
+            //{ value: "A", text: "CEDULA DIPLOMATICA DE IDENTIDAD" },
+            //{ value: "0", text: "OTROS" }
+        ];
+    }
 
     // Limpiar opciones existentes excepto la primera
     while (ddlTipoDocumento.options.length > 1) {
@@ -200,6 +379,7 @@ function inicializarTiposDocumento() {
     });
 }
 
+
 function cambiarTipoPersona(tipoPersona) {
     const divPersonaNatural = document.getElementById('divPersonaNatural');
     const divPersonaJuridica = document.getElementById('divPersonaJuridica');
@@ -207,6 +387,9 @@ function cambiarTipoPersona(tipoPersona) {
     const ocultarPersonaJuridica = document.getElementById('ocultarPersonaJuridica');
 
     document.getElementById('textTipoPersona').value = tipoPersona;
+
+    // Actualizar tipos de documento según el tipo de persona
+    inicializarTiposDocumento(tipoPersona);
 
     if (tipoPersona === '1') { // Persona natural
         divPersonaNatural.style.display = 'block';
@@ -337,9 +520,21 @@ function actualizarContador(textAreaId, labelId, maxLength) {
 
 function validarFormulario() {
     let esValido = true;
+    //const esMenorEdad = document.getElementById('radioMenorSi').checked;
+    const esMenorEdad = document.getElementById('radioMenorSi') ? document.getElementById('radioMenorSi').checked : false;
 
     // Validar tipo de persona
-    if (document.getElementById('ddlTipoPersona').value === '-') {
+    /*     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
+        if (document.getElementById('ddlTipoPersona').value === '-') {
+            mostrarError('divTipoPersona', 'Seleccione el tipo de persona');
+            esValido = false;
+        } else {
+            ocultarError('divTipoPersona');
+        }
+     */
+    // Validar tipo de persona
+    const ddlTipoPersona = document.getElementById('ddlTipoPersona');
+    if (ddlTipoPersona && ddlTipoPersona.value === '-') {
         mostrarError('divTipoPersona', 'Seleccione el tipo de persona');
         esValido = false;
     } else {
@@ -347,16 +542,35 @@ function validarFormulario() {
     }
 
     // Validar tipo de documento
-    if (document.getElementById('ddlTipoDocumento').value === '-') {
+    /*     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
+        if (document.getElementById('ddlTipoDocumento').value === '-') {
+            mostrarError('divTipoDocumento', 'Seleccione el tipo de documento');
+            esValido = false;
+        } else {
+            ocultarError('divTipoDocumento');
+        }
+     */
+    // Validar número de documento
+    /*     const txtnumDoc = document.getElementById('txtNumDoc');
+        if (!numDoc || numDoc.trim() === '') {
+            mostrarError('divNumDoc', 'Ingrese el número de documento');
+            esValido = false;
+        } else {
+            ocultarError('divNumDoc');
+        } */
+
+    // Validar tipo de documento (solo si NO es menor de edad)
+    const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
+    if (ddlTipoDocumento && !esMenorEdad && ddlTipoDocumento.value === '-') {
         mostrarError('divTipoDocumento', 'Seleccione el tipo de documento');
         esValido = false;
     } else {
         ocultarError('divTipoDocumento');
     }
 
-    // Validar número de documento
-    const numDoc = document.getElementById('txtNumDoc').value;
-    if (!numDoc || numDoc.trim() === '') {
+    // Validar número de documento (solo si NO es menor de edad)
+    const txtNumDoc = document.getElementById('txtNumDoc');
+    if (txtNumDoc && !esMenorEdad && (!txtNumDoc.value || txtNumDoc.value.trim() === '')) {
         mostrarError('divNumDoc', 'Ingrese el número de documento');
         esValido = false;
     } else {
@@ -364,8 +578,17 @@ function validarFormulario() {
     }
 
     // Validar descripción
-    const descripcion = document.getElementById('txtDescripcion').value;
-    if (!descripcion || descripcion.trim() === '' || descripcion.length < 15) {
+    /*     const descripcion = document.getElementById('txtDescripcion');
+        if (!descripcion || descripcion.trim() === '' || descripcion.length < 15) {
+            mostrarError('divDescripcion', 'La descripción debe tener al menos 15 caracteres');
+            esValido = false;
+        } else {
+            ocultarError('divDescripcion');
+        }
+     */
+    // Validar descripción
+    const txtDescripcion = document.getElementById('txtDescripcion');
+    if (txtDescripcion && (!txtDescripcion.value || txtDescripcion.value.trim() === '' || txtDescripcion.value.length < 15)) {
         mostrarError('divDescripcion', 'La descripción debe tener al menos 15 caracteres');
         esValido = false;
     } else {
@@ -373,7 +596,24 @@ function validarFormulario() {
     }
 
     // Validar forma de entrega
-    if (document.getElementById('ddlFormaEntrega').value === '-') {
+    /*     if (document.getElementById('ddlFormaEntrega').value === '-') {
+            mostrarError('divFormaEntregaRequired', 'Seleccione la forma de entrega');
+            esValido = false;
+        } else {
+            ocultarError('divFormaEntregaRequired');
+        }
+     */
+    // Validar forma de notificación
+    /*     if (document.getElementById('ddlFormaNotificacion').value === '-') {
+            mostrarError('divFormaNotificacionRequired', 'Seleccione la forma de notificación');
+            esValido = false;
+        } else {
+            ocultarError('divFormaNotificacionRequired');
+        }
+     */
+    // Validar forma de entrega
+    const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
+    if (ddlFormaEntrega && ddlFormaEntrega.value === '-') {
         mostrarError('divFormaEntregaRequired', 'Seleccione la forma de entrega');
         esValido = false;
     } else {
@@ -381,7 +621,8 @@ function validarFormulario() {
     }
 
     // Validar forma de notificación
-    if (document.getElementById('ddlFormaNotificacion').value === '-') {
+    const ddlFormaNotificacion = document.getElementById('ddlFormaNotificacion');
+    if (ddlFormaNotificacion && ddlFormaNotificacion.value === '-') {
         mostrarError('divFormaNotificacionRequired', 'Seleccione la forma de notificación');
         esValido = false;
     } else {
@@ -416,6 +657,9 @@ function enviarSolicitud() {
 
         // Generar PDF
         generarPDF();
+
+        // Limpiar formulario después de generar el PDF
+        limpiarFormulario();
 
         alert('Solicitud enviada correctamente. Se ha generado un PDF con los datos.');
     }, 2000);
@@ -610,6 +854,8 @@ function recopilarDatosFormulario() {
     const vLenguaMaterna = document.getElementById('vLenguaMaterna');
     const vNacionalidad = document.getElementById('vNacionalidad');
 
+    const esMenorEdad = document.getElementById('radioMenorSi').checked;
+
     // Obtener valores con formato adecuado
     const tipoPersona = ddlTipoPersona.options[ddlTipoPersona.selectedIndex].text;
     const tipoDocumento = ddlTipoDocumento.options[ddlTipoDocumento.selectedIndex].text;
@@ -663,3 +909,93 @@ function recopilarDatosFormulario() {
     };
 }
 
+function limpiarFormulario() {
+    // Limpiar campos básicos
+    document.getElementById('ddlTipoPersona').value = '-';
+    document.getElementById('ddlTipoDocumento').value = '-';
+    document.getElementById('txtNumDoc').value = '';
+    document.getElementById('txtRazonSocial').value = '';
+    document.getElementById('txtApePat').value = '';
+    document.getElementById('txtApeMat').value = '';
+    document.getElementById('txtNombre').value = '';
+    document.getElementById('ddlDepartamento').value = '-';
+    document.getElementById('ddlProvincia').value = '-';
+    document.getElementById('ddlDistrito').value = '-';
+    document.getElementById('txtDomicilio').value = '';
+    document.getElementById('txtDescripcion').value = '';
+    document.getElementById('txtBusquedaInfo').value = '';
+    document.getElementById('ddlFormaEntrega').value = '-';
+    document.getElementById('ddlFormaNotificacion').value = '-';
+    document.getElementById('txtTelefono').value = '';
+    document.getElementById('txtCelular').value = '';
+    document.getElementById('txtEmail').value = '';
+
+    // Limpiar campos de persona natural
+    document.getElementById('vSexo').value = '-';
+    document.getElementById('vEdad').value = '';
+    document.getElementById('vGrupoEtnico').value = '-';
+    document.getElementById('cDiscapacidad').checked = false;
+    document.getElementById('valorDiscapacidad').value = '0';
+    document.getElementById('vLenguaMaterna').value = '-';
+    document.getElementById('vNacionalidad').value = '-';
+
+    // Limpiar campos "Otros"
+    document.getElementById('vOtrosEntrega').value = '';
+    document.getElementById('vOtrosNotificacion').value = '';
+    document.getElementById('vOtrosGrupoEtnico').value = '';
+    document.getElementById('vOtrosLenguaMaterna').value = '';
+
+    // Limpiar archivo
+    document.getElementById('file').value = '';
+
+    // Limpiar unidad orgánica
+    document.getElementById('ddlUnidadOrganica').value = '-';
+
+    // Limpiar campos ocultos
+    document.getElementById('textTipoPersona').value = '';
+    document.getElementById('textTipoDocumento').value = '';
+    document.getElementById('textTipoDepartamento').value = '';
+    document.getElementById('textTipoProvincia').value = '';
+    document.getElementById('textTipoDistrito').value = '';
+    document.getElementById('textFormaEntrega').value = '';
+    document.getElementById('textFormaNotificacion').value = '';
+    document.getElementById('textNacionalidad').value = '';
+
+    // Limpiar menor de edad
+    document.querySelectorAll('input[name="vMenor"]').forEach(radio => {
+        radio.checked = false;
+    });
+
+
+    // Asegurarse de que los campos de documento estén habilitados
+    document.getElementById('ddlTipoDocumento').disabled = false;
+    document.getElementById('txtNumDoc').disabled = false;
+
+    // Restaurar estilos
+    document.getElementById('ddlTipoDocumento').style.backgroundColor = '';
+    document.getElementById('ddlTipoDocumento').style.color = '';
+    document.getElementById('txtNumDoc').style.backgroundColor = '';
+    document.getElementById('txtNumDoc').style.color = '';
+
+    // Ocultar mensaje informativo
+    ocultarMensajeMenorEdad();
+
+
+    // Ocultar secciones que se mostraron dinámicamente
+    document.getElementById('divPersonaNatural').style.display = 'none';
+    document.getElementById('divPersonaJuridica').style.display = 'none';
+    document.getElementById('divCajaMenor').style.display = 'none';
+    document.getElementById('ocultarPersonaJuridica').style.display = 'none';
+    document.getElementById('divBotonValidarReniec').style.display = 'none';
+    document.getElementById('divSelectorOtrosEntrega').style.display = 'none';
+    document.getElementById('divSelectorOtrosNotificacion').style.display = 'none';
+    document.getElementById('divSelectorOtrosGrupoEtnico').style.display = 'none';
+    document.getElementById('divSelectorOtrosLenguaMaterna').style.display = 'none';
+
+    // Actualizar contadores
+    actualizarContador('txtDescripcion', 'lblContador', 499);
+    actualizarContador('txtBusquedaInfo', 'lblContador2', 99);
+
+    // Reinicializar tipos de documento
+    inicializarTiposDocumento();
+}
