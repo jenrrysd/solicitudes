@@ -467,6 +467,8 @@ function toggleOtrosEntrega(valor) {
         divSelectorOtrosEntrega.style.display = 'block';
     } else {
         divSelectorOtrosEntrega.style.display = 'none';
+        // Limpiar el campo cuando se cambia de opción
+        document.getElementById('vOtrosEntrega').value = '';
     }
 }
 
@@ -480,6 +482,66 @@ function toggleOtrosNotificacion(valor) {
         divSelectorOtrosNotificacion.style.display = 'none';
     }
 }
+
+function validateAge(input) {
+    var value = input.value.trim();
+    var radioSi = document.getElementById('radioMenorSi');
+    var radioNo = document.getElementById('radioMenorNo');
+
+    // Si el campo está vacío, permitir pasar sin validación
+    if (value === "") {
+        return;
+    }
+
+    // Verificar si alguno de los radio buttons está seleccionado
+    if (!radioSi.checked && !radioNo.checked) {
+        return; // No hacer nada si no se ha seleccionado si es menor o mayor de edad
+    }
+
+    // Convertir el valor a número
+    value = parseInt(value);
+
+    // Determinar min y max según el radio button seleccionado
+    var min, max;
+    if (radioSi.checked) {
+        min = 1;
+        max = 17;
+    } else {
+        min = 18;
+        max = 100;
+    }
+
+    // Validar la edad si se ha ingresado un número
+    if (isNaN(value) || value < min || value > max) {
+        input.focus();
+        if (radioSi.checked) {
+            Swal.fire(
+                'Advertencia',
+                'Por favor, ingrese un número entre 1 y 17.',
+                'warning'
+            );
+        } else {
+            Swal.fire(
+                'Advertencia',
+                'Por favor, ingrese un número entre 18 y 100.',
+                'warning'
+            );
+        }
+        input.value = ""; // Borra el valor no válido
+    }
+}
+
+// Agregar eventos a los radio buttons
+document.getElementById('radioMenorSi').addEventListener('change', function () {
+    var edadInput = document.getElementById('vEdad');
+    validateAge(edadInput);
+});
+
+document.getElementById('radioMenorNo').addEventListener('change', function () {
+    var edadInput = document.getElementById('vEdad');
+    validateAge(edadInput);
+});
+
 
 function toggleOtrosGrupoEtnico(valor) {
     const divSelectorOtrosGrupoEtnico = document.getElementById('divSelectorOtrosGrupoEtnico');

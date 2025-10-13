@@ -1,6 +1,7 @@
 body {
     overflow: hidden;
     background-color: rgb(255, 255, 255);
+    /*background-color: #d4d4d4; */
     overflow: visible;
     margin: 0 auto;
     padding: 0;
@@ -9,7 +10,7 @@ body {
     font: inherit;
     vertical-align: baseline;
     width: 1100px;
-    background: #d4d4d4;
+    /*background: #d4d4d4; */
 }
 
 #preloader {
@@ -71,7 +72,7 @@ body {
     text-align: left;
     margin-bottom: 10px;
     height: 168px;
-    background: #FFF;
+    /*background: #FFF; */
     margin: 0 auto;
     width: 1100px;
     background-image: url(assets/img/solicitud_acceso.jpg);
@@ -84,28 +85,37 @@ body {
     font-size: 16px;
     padding: 2px 2px;
     margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 20;
 
 }
 
 .linefiltro {
     width: 100%;
-    margin-bottom: 10px;
+    padding: 3px;
+    margin-left: 20px;
+    margin-right: 20px;
+    /*margin: 4px; */
     clear: both;
+    border: none;
+    background: transparent;
 }
 
 .floatleft {
     float: left;
+    /*background: #d1d1d1; */
 }
 
 .dt {
     display: inline-block;
     vertical-align: top;
+
 }
 
 .lbl-label {
     width: 250px;
     text-align: left;
-    padding-right: 10px;
+    padding-right: 5px;
     font-weight: bold;
 }
 
@@ -149,6 +159,7 @@ body {
 
 .q1 {
     width: 500px;
+    background: white;
 }
 
 .p1 {
@@ -280,7 +291,14 @@ body {
 }
 
 .subTitulo {
+    background-color: #ffffff;
+    color: #1f1fb3;
     font-size: 16px;
+    margin-left: 30px;
+    margin-left: 20px;
+
+    margin-block: 20px;
+    margin-top: 15px;
     font-weight: bold;
 }
 
@@ -304,8 +322,52 @@ select {
     content: none !important;
 }
 
-/* Asterisco solo para labels que no están vacíos y no son opcionales */
-.dt.lbl-label:not(:empty):not(.optional):after {
+
+/* Asterisco para campos obligatorios */
+.dt.lbl-label.required:after {
     content: " *";
     color: #e74c3c;
 }
+
+/* Texto "Opcional" para campos no obligatorios */
+.dt.lbl-label.optional:after {
+    content: " (Opcional)";
+    color: #7f8c8d;
+    font-weight: normal;
+}
+
+/* Debug temporal - ver todos los elementos con borde 
+* {
+    border: 1px solid red !important;
+    /* Todos los bordes en rojo */
+/*}
+
+/* Espacio para la sección "Datos del Solicitante" */
+.linefiltro.floatleft:first-of-type {
+    margin-left: 20px;
+    /*padding-left: 10px; */
+}
+
+/* Contenedor principal mejorado */
+#divSelectorOtrosEntrega {
+    display: none;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Fila para "Otros:" y el input */
+/* .otros-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.otros-label {
+    font-weight: bold;
+    min-width: 60px;
+}
+
+.otros-input {
+    flex: 1;
+    max-width: 400px;
+} */
