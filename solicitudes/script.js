@@ -490,12 +490,12 @@ function validateAge(input) {
 
     // Si el campo está vacío, permitir pasar sin validación
     if (value === "") {
-        return;
+        return true;
     }
 
     // Verificar si alguno de los radio buttons está seleccionado
     if (!radioSi.checked && !radioNo.checked) {
-        return; // No hacer nada si no se ha seleccionado si es menor o mayor de edad
+        return true;
     }
 
     // Convertir el valor a número
@@ -514,33 +514,81 @@ function validateAge(input) {
     // Validar la edad si se ha ingresado un número
     if (isNaN(value) || value < min || value > max) {
         input.focus();
+
+        // Mostrar popup inmediatamente
         if (radioSi.checked) {
-            Swal.fire(
-                'Advertencia',
-                'Por favor, ingrese un número entre 1 y 17.',
-                'warning'
-            );
+            Swal.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'Por favor, ingrese un número entre 1 y 17.',
+                confirmButtonText: 'Entendido',
+                allowOutsideClick: false
+            }).then((result) => {
+                // Limpiar el campo después de que el usuario cierre el popup
+                if (result.isConfirmed) {
+                    input.value = "";
+                    input.focus();
+                }
+            });
         } else {
-            Swal.fire(
-                'Advertencia',
-                'Por favor, ingrese un número entre 18 y 100.',
-                'warning'
-            );
+            Swal.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'Por favor, ingrese un número entre 18 y 100.',
+                confirmButtonText: 'Entendido',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    input.value = "";
+                    input.focus();
+                }
+            });
         }
-        input.value = ""; // Borra el valor no válido
+        return false;
+    }
+
+    return true;
+}
+
+
+function revalidateAge() {
+    var edadInput = document.getElementById('vEdad');
+    if (edadInput && edadInput.value.trim() !== "") {
+        // Usar setTimeout para asegurar que la validación ocurra después del cambio
+        setTimeout(function () {
+            validateAge(edadInput);
+        }, 100);
     }
 }
 
-// Agregar eventos a los radio buttons
-document.getElementById('radioMenorSi').addEventListener('change', function () {
-    var edadInput = document.getElementById('vEdad');
-    validateAge(edadInput);
-});
+function validateAgeImmediately(input) {
+    var value = input.value.trim();
+    var radioSi = document.getElementById('radioMenorSi');
 
-document.getElementById('radioMenorNo').addEventListener('change', function () {
-    var edadInput = document.getElementById('vEdad');
-    validateAge(edadInput);
-});
+    // Solo validar si ya tenemos un valor completo y es menor de edad
+    if (value !== "" && radioSi && radioSi.checked) {
+        var edad = parseInt(value);
+
+        // Si la edad es mayor a 17, mostrar advertencia inmediatamente
+        if (!isNaN(edad) && edad > 17) {
+            // Usar setTimeout para evitar problemas con el evento oninput
+            setTimeout(function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Edad no válida',
+                    text: 'Como es menor de edad, debe ingresar una edad entre 1 y 17 años.',
+                    confirmButtonText: 'Entendido',
+                    allowOutsideClick: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        input.value = "";
+                        input.focus();
+                    }
+                });
+            }, 100);
+        }
+    }
+}
 
 
 function toggleOtrosGrupoEtnico(valor) {
@@ -640,15 +688,6 @@ function validarFormulario() {
     }
 
     // Validar descripción
-    /*     const descripcion = document.getElementById('txtDescripcion');
-        if (!descripcion || descripcion.trim() === '' || descripcion.length < 15) {
-            mostrarError('divDescripcion', 'La descripción debe tener al menos 15 caracteres');
-            esValido = false;
-        } else {
-            ocultarError('divDescripcion');
-        }
-     */
-    // Validar descripción
     const txtDescripcion = document.getElementById('txtDescripcion');
     if (txtDescripcion && (!txtDescripcion.value || txtDescripcion.value.trim() === '' || txtDescripcion.value.length < 15)) {
         mostrarError('divDescripcion', 'La descripción debe tener al menos 15 caracteres');
@@ -657,22 +696,6 @@ function validarFormulario() {
         ocultarError('divDescripcion');
     }
 
-    // Validar forma de entrega
-    /*     if (document.getElementById('ddlFormaEntrega').value === '-') {
-            mostrarError('divFormaEntregaRequired', 'Seleccione la forma de entrega');
-            esValido = false;
-        } else {
-            ocultarError('divFormaEntregaRequired');
-        }
-     */
-    // Validar forma de notificación
-    /*     if (document.getElementById('ddlFormaNotificacion').value === '-') {
-            mostrarError('divFormaNotificacionRequired', 'Seleccione la forma de notificación');
-            esValido = false;
-        } else {
-            ocultarError('divFormaNotificacionRequired');
-        }
-     */
     // Validar forma de entrega
     const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
     if (ddlFormaEntrega && ddlFormaEntrega.value === '-') {
@@ -689,6 +712,22 @@ function validarFormulario() {
         esValido = false;
     } else {
         ocultarError('divFormaNotificacionRequired');
+    }
+
+    //return esValido;
+
+    // Validar edad si es persona natural y se ha seleccionado menor/mayor de edad
+    const vEdad = document.getElementById('vEdad');
+    const radioMenorSi = document.getElementById('radioMenorSi');
+    const radioMenorNo = document.getElementById('radioMenorNo');
+
+    if (document.getElementById('ddlTipoPersona').value === '1' &&
+        (radioMenorSi.checked || radioMenorNo.checked) &&
+        vEdad && vEdad.value.trim() !== "") {
+
+        if (!validateAge(vEdad)) {
+            esValido = false;
+        }
     }
 
     return esValido;

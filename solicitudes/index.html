@@ -7,8 +7,11 @@
     <title>Solicitud de Acceso a la Información Pública</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Incluir jsPDF desde CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script> -->
+    <!--para el popap-->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <link rel="stylesheet" href="assets/css/sweetalert2.min.css">
 </head>
 
 <body>
@@ -125,6 +128,7 @@
             </div>
             <div class="dt k1">
                 <input id="txtNumDoc" name="vNumNrodoc" class="input upper" value="" maxlength="15" />
+                <!-- onkeypress="return TipoDocumento(event)" onblur="return documento(this, event)" maxlength="15" /> -->
             </div>
             <div id="divNumDoc" class="dt"></div>
             <div><input type="hidden" id="flgValidarServicio" name="flgValidarServicio" value="0" /></div>
@@ -477,7 +481,8 @@
                 </div>
                 <div class="dt k1">
                     <input id="vEdad" name="vEdad" class="input upper" maxlength="3" style="width: 18%"
-                        onblur="validateAge(this);" onkeypress="return isNumberKey(this);" />
+                        oninput="validateAgeImmediately(this)" onkeypress="return isNumberKey(this);" />
+                    <!-- onblur="validateAge(this);" onkeypress="return isNumberKey(this);" /> -->
                 </div>
                 <div id="divCelular" class="dt"></div>
             </div>
@@ -597,7 +602,10 @@
 
         <div id="divMsjRespuesta"></div>
     </div>
-
+    <!-- SCRIPTS LOCALES - al final del body -->
+    <script src="assets/js/jspdf.umd.min.js"></script>
+    <script src="assets/js/jspdf-autotable.min.js"></script>
+    <script src="assets/js/sweetalert2.min.js"></script>
     <script src="script.js"></script>
 </body>
 
