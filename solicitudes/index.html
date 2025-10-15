@@ -127,8 +127,13 @@
                 Nro. de documento:
             </div>
             <div class="dt k1">
-                <input id="txtNumDoc" name="vNumNrodoc" class="input upper" value="" maxlength="15" />
+                <input id="txtNumDoc" name="vNumNrodoc" class="input upper" value="" maxlength="15"
+                    style="width: 200px; display: inline-block;" />
                 <!-- onkeypress="return TipoDocumento(event)" onblur="return documento(this, event)" maxlength="15" /> -->
+                <button type="button" id="btnBuscarRUC" onclick="consultarRUC()"
+                    style="margin-left: 5px; padding: 6px 12px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; display: none;">
+                    Buscar
+                </button>
             </div>
             <div id="divNumDoc" class="dt"></div>
             <div><input type="hidden" id="flgValidarServicio" name="flgValidarServicio" value="0" /></div>

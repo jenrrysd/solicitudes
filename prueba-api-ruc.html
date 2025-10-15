@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prueba API RUC</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🔍 Consultar RUC - apisperu.com</h2>
+
+        <div>
+            <input type="text" id="rucInput" placeholder="Ingresa RUC" maxlength="11" value="20131312955">
+            <button onclick="consultarRUC()">Consultar</button>
+        </div>
+
+        <div class="resultado" id="resultado">
+            Esperando consulta...
+        </div>
+    </div>
+
+    <script>
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRleHRyZTE0ODFAZ21haWwuY29tIn0.CNlAXjuwdzDfG6NrsuLGKUrJBh1KASQKUcRxYqwSNc0';
+
+        function consultarRUC() {
+            const ruc = document.getElementById('rucInput').value.trim();
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (!ruc) {
+                resultadoDiv.innerHTML = '<p style="color: red;">❌ Ingresa un RUC</p>';
+                return;
+            }
+
+            if (ruc.length !== 11 || !/^\d+$/.test(ruc)) {
+                resultadoDiv.innerHTML = '<p style="color: red;">❌ El RUC debe tener 11 dígitos</p>';
+                return;
+            }
+
+            resultadoDiv.innerHTML = '<p>🔍 Consultando...</p>';
+
+            fetch(`https://dniruc.apisperu.com/api/v1/ruc/${ruc}?token=${token}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    resultadoDiv.innerHTML = `
+                        <h3 style="color: green;">✅ Consulta Exitosa</h3>
+                        <p><strong>RUC:</strong> ${data.ruc}</p>
+                        <p><strong>Razón Social:</strong> ${data.razonSocial}</p>
+                        <p><strong>Nombre Comercial:</strong> ${data.nombreComercial || 'No disponible'}</p>
+                        <p><strong>Estado:</strong> ${data.estado}</p>
+                        <p><strong>Condición:</strong> ${data.condicion}</p>
+                        <p><strong>Dirección:</strong> ${data.direccion}</p>
+                        <p><strong>Ubicación:</strong> ${data.departamento} - ${data.provincia} - ${data.distrito}</p>
+                    `;
+                    console.log('Datos completos:', data);
+                })
+                .catch(error => {
+                    resultadoDiv.innerHTML = `
+                        <p style="color: red;">❌ Error en la consulta</p>
+                        <p><strong>Detalle:</strong> ${error.message}</p>
+                    `;
+                    console.error('Error:', error);
+                });
+        }
+
+        // Permitir consultar con Enter
+        document.getElementById('rucInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                consultarRUC();
+            }
+        });
+    </script>
+</body>
+
+</html>

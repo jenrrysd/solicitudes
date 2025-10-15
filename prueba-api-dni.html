@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prueba API DNI</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🔍 Consultar DNI - apisperu.com</h2>
+
+        <div>
+            <input type="text" id="dniInput" placeholder="Ingresa DNI" maxlength="8" value="09990600">
+            <button onclick="consultarDNI()">Consultar</button>
+        </div>
+
+        <div class="resultado" id="resultado">
+            Esperando consulta...
+        </div>
+    </div>
+
+    <script>
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRleHRyZTE0ODFAZ21haWwuY29tIn0.CNlAXjuwdzDfG6NrsuLGKUrJBh1KASQKUcRxYqwSNc0';
+
+        function consultarDNI() {
+            const dni = document.getElementById('dniInput').value.trim();
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (!dni) {
+                resultadoDiv.innerHTML = '<p style="color: red;">❌ Ingresa un DNI</p>';
+                return;
+            }
+
+            if (dni.length !== 8 || !/^\d+$/.test(dni)) {
+                resultadoDiv.innerHTML = '<p style="color: red;">❌ El DNI debe tener 8 dígitos</p>';
+                return;
+            }
+
+            resultadoDiv.innerHTML = '<p>🔍 Consultando...</p>';
+
+            fetch(`https://dniruc.apisperu.com/api/v1/dni/${dni}?token=${token}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    resultadoDiv.innerHTML = `
+                        <h3 style="color: green;">✅ Consulta Exitosa</h3>
+                        <p><strong>DNI:</strong> ${data.dni}</p>
+                        <p><strong>Nombres:</strong> ${data.nombres}</p>
+                        <p><strong>Apellido Paterno:</strong> ${data.apellidoPaterno}</p>
+                        <p><strong>Apellido Materno:</strong> ${data.apellidoMaterno}</p>
+                        <p><strong>Nombre Completo:</strong> ${data.nombres} ${data.apellidoPaterno} ${data.apellidoMaterno}</p>
+                        <p><strong>Codigo Verificación:</strong> ${data.codVerifica || 'No disponible'}</p>
+                    `;
+                    console.log('Datos completos:', data);
+                })
+                .catch(error => {
+                    resultadoDiv.innerHTML = `
+                        <p style="color: red;">❌ Error en la consulta</p>
+                        <p><strong>Detalle:</strong> ${error.message}</p>
+                    `;
+                    console.error('Error:', error);
+                });
+        }
+
+        // Permitir consultar con Enter
+        document.getElementById('rucInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                consultarDNI();
+            }
+        });
+    </script>
+</body>
+
+</html>

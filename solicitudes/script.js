@@ -197,6 +197,7 @@ function inicializarEventos() {
             enviarSolicitud();
         });
     }
+    inicializarConsultaRUC(); // ← Agrega esta línea
 }
 
 function inicializarFormulario() {
@@ -276,6 +277,70 @@ function inicializarFormulario() {
     });
 }
  */
+
+const TOKEN_RUC = 'sk_10921.ytFcmj7MvF6ZVKoEKmL9P2aAixNO8fRV';
+
+// Inicializar eventos RUC
+function inicializarConsultaRUC() {
+    const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
+    if (ddlTipoDocumento) {
+        ddlTipoDocumento.addEventListener('change', function () {
+            toggleBotonBuscarRUC(this.value);
+        });
+    }
+
+    // Inicializar estado del botón
+    toggleBotonBuscarRUC(document.getElementById('ddlTipoDocumento').value);
+}
+
+// Mostrar/ocultar botón buscar
+function toggleBotonBuscarRUC(tipoDocumento) {
+    const btnBuscarRUC = document.getElementById('btnBuscarRUC');
+    if (btnBuscarRUC) {
+        btnBuscarRUC.style.display = tipoDocumento === '6' ? 'inline-block' : 'none';
+    }
+}
+
+// Consultar RUC usando tu script bash
+async function consultarRUC() {
+    const ruc = document.getElementById('txtNumDoc').value.trim();
+    const txtRazonSocial = document.getElementById('txtRazonSocial');
+
+    if (!ruc || ruc.length !== 11 || !/^\d+$/.test(ruc)) {
+        alert('Ingrese un RUC válido de 11 dígitos');
+        return;
+    }
+
+    const btnBuscarRUC = document.getElementById('btnBuscarRUC');
+    const originalText = btnBuscarRUC.innerHTML;
+    btnBuscarRUC.innerHTML = 'Buscando...';
+    btnBuscarRUC.disabled = true;
+
+    try {
+        const response = await fetch(`consulta_ruc.php?ruc=${ruc}`);
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.razon_social) {
+            txtRazonSocial.value = data.razon_social;
+        } else {
+            alert('RUC no encontrado');
+            txtRazonSocial.value = '';
+        }
+
+    } catch (error) {
+        alert('Error al consultar RUC: ' + error.message);
+        console.error('Error:', error);
+    } finally {
+        btnBuscarRUC.innerHTML = originalText;
+        btnBuscarRUC.disabled = false;
+    }
+}
+
 function toggleCamposMenorEdad(esMenor) {
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
     const txtNumDoc = document.getElementById('txtNumDoc');
