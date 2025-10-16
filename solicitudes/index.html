@@ -122,19 +122,29 @@
             <div id="divTipoDocumento" class="dt"></div>
         </div>
 
-        <div class="linefiltro floatleft">
-            <div class="dt lbl-label required">
+        <div class="linefiltro floatleft" style="display: flex; align-items: center; gap: 8px;">
+            <label for="txtNumDoc" class="dt lbl-label required" style="min-width: 160px; font-weight: bold;">
                 Nro. de documento:
-            </div>
-            <div class="dt k1">
-                <input id="txtNumDoc" name="vNumNrodoc" class="input upper" value="" maxlength="15"
-                    style="width: 200px; display: inline-block;" />
-                <!-- onkeypress="return TipoDocumento(event)" onblur="return documento(this, event)" maxlength="15" /> -->
-                <button type="button" id="btnBuscarRUC" onclick="consultarRUC()"
-                    style="margin-left: 5px; padding: 6px 12px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; display: none;">
-                    Buscar
-                </button>
-            </div>
+            </label>
+
+            <input id="txtNumDoc" name="vNumNrodoc" class="input upper" maxlength="15"
+                style="width: 200px; height: 15px; padding: 6px 8px; font-size: 14px;" />
+
+            <button type="button" id="btnBuscarRUC" style="
+                        padding: 0 16px;
+                        background: #007bff;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        display: none;
+                        height: 26px;
+                        text-align: center;
+                        line-height: 26px;
+                    ">
+                Buscar
+            </button>
+
             <div id="divNumDoc" class="dt"></div>
             <div><input type="hidden" id="flgValidarServicio" name="flgValidarServicio" value="0" /></div>
             <div><input type="button" id="buscarJuridica" value="Buscar" style="width: 60px; display: none;"
@@ -147,8 +157,8 @@
                     Razón social:
                 </div>
                 <div class="dt">
-                    <input id="txtRazonSocial" name="vDescRazonSocial" class="input upper p1" maxlength="100" />
-                    Ingresar el nombre de la empresa
+                    <input id="txtRazonSocial" name="vDescRazonSocial" class="input upper p1" maxlength="100" readonly
+                        style="background-color: #f3f3f3; color: #333; cursor: not-allowed" />
                 </div>
                 <div id="divRazonSocial" class="dt"></div>
             </div>
@@ -611,6 +621,53 @@
     <script src="assets/js/jspdf.umd.min.js"></script>
     <script src="assets/js/jspdf-autotable.min.js"></script>
     <script src="assets/js/sweetalert2.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Referencias a los elementos del formulario
+            const tipoPersona = document.getElementById("ddlTipoPersona");
+            const divPersonaJuridica = document.getElementById("divPersonaJuridica");
+            const divPersonaNatural = document.getElementById("divPersonaNatural");
+            const btnBuscarRUC = document.getElementById("btnBuscarRUC");
+            const razonSocial = document.getElementById("txtRazonSocial");
+            razonSocial.readOnly = true;
+            razonSocial.style.backgroundColor = "#f3f3f3";
+            razonSocial.style.cursor = "not-allowed";
+            razonSocial.style.color = "#333";
+
+            // Buscar RUC con Node.js backend
+            btnBuscarRUC.addEventListener("click", async () => {
+                const ruc = document.getElementById("txtNumDoc").value.trim();
+
+                if (!ruc.match(/^\d{11}$/)) {
+                    alert("Ingrese un RUC válido de 11 dígitos");
+                    return;
+                }
+
+                btnBuscarRUC.disabled = true;
+                btnBuscarRUC.innerText = "Buscando...";
+
+                try {
+                    const res = await fetch(`http://localhost:3000/api/ruc/${ruc}`);
+                    const data = await res.json();
+
+                    if (data && data.razon_social) {
+                        razonSocial.value = data.razon_social;
+                    } else if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        alert("No se encontró el RUC");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Error al consultar el RUC");
+                } finally {
+                    btnBuscarRUC.disabled = false;
+                    btnBuscarRUC.innerText = "Buscar";
+                }
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 
