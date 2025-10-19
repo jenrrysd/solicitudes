@@ -63,6 +63,7 @@
 
         <div class="lineaAzul subTitulo">
             <b>+ &nbsp;</b> REQUISITOS OBLIGATORIOS DE LA SOLICITUD:
+            <hr>
         </div>
 
         <input type="hidden" id="textTipoPersona" name="textTipoPersona" />
@@ -142,7 +143,22 @@
                         text-align: center;
                         line-height: 26px;
                     ">
-                Buscar
+                Buscar RUC
+            </button>
+            <!-- Botón para búsqueda DNI -->
+            <button type="button" id="btnBuscarDNI" onclick="consultarDNI()"  style="
+                        padding: 0 16px;
+                        background: #28a745;
+                        color: white;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        display: none;
+                        height: 26px;
+                        text-align: center;
+                        line-height: 26px;
+                    ">
+                Buscar DNI
             </button>
 
             <div id="divNumDoc" class="dt"></div>
@@ -370,15 +386,16 @@
             <div id="divFormaEntregaRequired" class="dt"></div>
 
             <div class="dt lbl-label"
-                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px;font-size: 13px;font-weight: bold;color: #FF3333;">
+                style="font-size: 12px; line-height: 15px;width: 582px; text-align: justify; margin-left: 261px; margin-top: 2px; margin-bottom: 33px;font-size: 13px;font-weight: bold;color: #FF3333;">
                 (Si no se indica, se entrega a través de copias simples, reguladas en el Decreto Supremo N°
                 164-2020-PCM)
             </div>
         </div>
 
         <div class="lineaAzul subTitulo" style="padding-top: 30px"> <!-- </div> style="margin-top: 20px;"> -->
-            <br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br>
             <b>+ &nbsp;</b> REQUISITOS OPCIONALES DE LA SOLICITUD:
+            <hr>
         </div>
 
         <div id="divUOrganica">
@@ -582,6 +599,7 @@
         <div class="lineaAzul subTitulo" style="padding-top: 30px;">
             <br><br><br><br><br><br><br><br>
             <b>+ &nbsp;</b> MODALIDAD DE NOTIFICACIÓN:
+            <hr>
         </div>
 
         <div class="linefiltro floatleft" style="width: 100%;margin-bottom: 33px;">
@@ -624,12 +642,20 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            //obtener ip
+            const ipHost = () => {
+                return window.location.hostname || 'localhost';
+            };
+            const ip = ipHost();
+
             // Referencias a los elementos del formulario
             const tipoPersona = document.getElementById("ddlTipoPersona");
             const divPersonaJuridica = document.getElementById("divPersonaJuridica");
             const divPersonaNatural = document.getElementById("divPersonaNatural");
             const btnBuscarRUC = document.getElementById("btnBuscarRUC");
+            const btnBuscarDNI = document.getElementById("btnBuscarDNI");
             const razonSocial = document.getElementById("txtRazonSocial");
+
             razonSocial.readOnly = true;
             razonSocial.style.backgroundColor = "#f3f3f3";
             razonSocial.style.cursor = "not-allowed";
@@ -648,7 +674,7 @@
                 btnBuscarRUC.innerText = "Buscando...";
 
                 try {
-                    const res = await fetch(`http://localhost:3000/api/ruc/${ruc}`);
+                    const res = await fetch(`http://${ip}:3000/api/ruc/${ruc}`);
                     const data = await res.json();
 
                     if (data && data.razon_social) {
@@ -664,6 +690,65 @@
                 } finally {
                     btnBuscarRUC.disabled = false;
                     btnBuscarRUC.innerText = "Buscar";
+                }
+            });
+            //buscar DNI
+            btnBuscarDNI.addEventListener("click", async () => {
+            const dni = document.getElementById("txtNumDoc").value.trim();
+            const txtApePat = document.getElementById("txtApePat");
+            const txtApeMat = document.getElementById("txtApeMat");
+            const txtNombre = document.getElementById("txtNombre");
+
+                if (!dni.match(/^\d{8}$/)) {
+                    alert("Ingrese un DNI válido de 8 dígitos");
+                return;
+                }
+
+                btnBuscarDNI.disabled = true;
+                btnBuscarDNI.innerText = "Buscando...";
+
+                try {
+                    const res = await fetch(`http://${ip}:3000/api/dni/${dni}`);
+                    const data = await res.json();
+
+                    console.log("Datos recibidos:", data); // Para debug
+
+                    if (data && data.first_name && data.first_last_name && data.second_last_name) {
+                        // Llenar los campos con los datos
+                        txtApePat.value = data.first_last_name.toUpperCase();
+                        txtApeMat.value = data.second_last_name.toUpperCase();
+                        txtNombre.value = data.first_name.toUpperCase();
+
+                        // Hacer los campos de solo lectura
+                        txtApePat.readOnly = true;
+                        txtApeMat.readOnly = true;
+                        txtNombre.readOnly = true;
+
+                        // Aplicar estilos
+                        txtApePat.style.backgroundColor = "#f3f3f3";
+                        txtApeMat.style.backgroundColor = "#f3f3f3";
+                        txtNombre.style.backgroundColor = "#f3f3f3";
+                        
+                        txtApePat.style.cursor = "not-allowed";
+                        txtApeMat.style.cursor = "not-allowed";
+                        txtNombre.style.cursor = "not-allowed";
+                        
+                        txtApePat.style.color = "#333";
+                        txtApeMat.style.color = "#333";
+                        txtNombre.style.color = "#333";
+
+                        //alert("Datos encontrados y cargados correctamente");
+                    } else if (data.error) {
+                        alert("Error: " + data.error);
+                    } else {
+                        alert("No se encontró el DNI");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Error al consultar el DNI");
+                } finally {
+                    btnBuscarDNI.disabled = false;
+                    btnBuscarDNI.innerText = "Buscar DNI";
                 }
             });
         });

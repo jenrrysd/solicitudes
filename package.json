@@ -1,6 +1,8 @@
+
 {
   "name": "solicitudes",
   "version": "1.0.0",
+  "type": "module",
   "description": "pagina web del ministerio",
   "main": "server.js",
   "scripts": {

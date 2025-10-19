@@ -218,67 +218,6 @@ function inicializarFormulario() {
     });
 }
 
-/* function inicializarEventos() {
-    // Agrega este evento en inicializarEventos()
-    document.getElementById('ddlTipoDocumento').addEventListener('change', function () {
-        document.getElementById('textTipoDocumento').value = this.options[this.selectedIndex].text;
-    });
-
-
-    // Evento para tipo de persona
-    document.getElementById('ddlTipoPersona').addEventListener('change', function () {
-        cambiarTipoPersona(this.value);
-    });
-
-    // Evento para forma de entrega
-    document.getElementById('ddlFormaEntrega').addEventListener('change', function () {
-        toggleOtrosEntrega(this.value);
-    });
-
-    // Evento para forma de notificación
-    document.getElementById('ddlFormaNotificacion').addEventListener('change', function () {
-        toggleOtrosNotificacion(this.value);
-    });
-
-    // Evento para grupo étnico
-    document.getElementById('vGrupoEtnico').addEventListener('change', function () {
-        toggleOtrosGrupoEtnico(this.value);
-    });
-
-    // Evento para lengua materna
-    document.getElementById('vLenguaMaterna').addEventListener('change', function () {
-        toggleOtrosLenguaMaterna(this.value);
-    });
-
-    // Evento para discapacidad
-    document.getElementById('cDiscapacidad').addEventListener('change', function () {
-        document.getElementById('valorDiscapacidad').value = this.checked ? '1' : '0';
-    });
-
-
-
-    // NUEVOS EVENTOS PARA MENOR DE EDAD
-    document.getElementById('radioMenorSi').addEventListener('change', function () {
-        if (this.checked) {
-            toggleCamposMenorEdad(true);
-        }
-    });
-
-    document.getElementById('radioMenorNo').addEventListener('change', function () {
-        if (this.checked) {
-            toggleCamposMenorEdad(false);
-        }
-    });
-
-
-    // Evento para el botón de enviar
-    document.getElementById('btngrabar').addEventListener('click', function () {
-        enviarSolicitud();
-    });
-}
- */
-
-const TOKEN_RUC = 'sk_10921.ytFcmj7MvF6ZVKoEKmL9P2aAixNO8fRV';
 
 // Inicializar eventos RUC
 function inicializarConsultaRUC() {
@@ -296,50 +235,58 @@ function inicializarConsultaRUC() {
 // Mostrar/ocultar botón buscar
 function toggleBotonBuscarRUC(tipoDocumento) {
     const btnBuscarRUC = document.getElementById('btnBuscarRUC');
+    const btnBuscarDNI = document.getElementById('btnBuscarDNI');
+
+
     if (btnBuscarRUC) {
         btnBuscarRUC.style.display = tipoDocumento === '6' ? 'inline-block' : 'none';
     }
-}
 
-// Consultar RUC usando tu script bash
-async function consultarRUC() {
-    const ruc = document.getElementById('txtNumDoc').value.trim();
-    const txtRazonSocial = document.getElementById('txtRazonSocial');
-
-    if (!ruc || ruc.length !== 11 || !/^\d+$/.test(ruc)) {
-        alert('Ingrese un RUC válido de 11 dígitos');
-        return;
-    }
-
-    const btnBuscarRUC = document.getElementById('btnBuscarRUC');
-    const originalText = btnBuscarRUC.innerHTML;
-    btnBuscarRUC.innerHTML = 'Buscando...';
-    btnBuscarRUC.disabled = true;
-
-    try {
-        const response = await fetch(`consulta_ruc.php?ruc=${ruc}`);
-
-        if (!response.ok) {
-            throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (data && data.razon_social) {
-            txtRazonSocial.value = data.razon_social;
-        } else {
-            alert('RUC no encontrado');
-            txtRazonSocial.value = '';
-        }
-
-    } catch (error) {
-        alert('Error al consultar RUC: ' + error.message);
-        console.error('Error:', error);
-    } finally {
-        btnBuscarRUC.innerHTML = originalText;
-        btnBuscarRUC.disabled = false;
+    if (btnBuscarDNI) {
+        btnBuscarDNI.style.display = tipoDocumento === '1' ? 'inline-block' : 'none';
     }
 }
+
+
+// Consultar RUC
+// async function consultarRUC() {
+//     const ruc = document.getElementById('txtNumDoc').value.trim();
+//     const txtRazonSocial = document.getElementById('txtRazonSocial');
+
+//     if (!ruc || ruc.length !== 11 || !/^\d+$/.test(ruc)) {
+//         alert('Ingrese un RUC válido de 11 dígitos');
+//         return;
+//     }
+
+//     const btnBuscarRUC = document.getElementById('btnBuscarRUC');
+//     const originalText = btnBuscarRUC.innerHTML;
+//     btnBuscarRUC.innerHTML = 'Buscando...';
+//     btnBuscarRUC.disabled = true;
+
+//     try {
+//         const response = await fetch(`consulta_ruc.php?ruc=${ruc}`);
+
+//         if (!response.ok) {
+//             throw new Error(`Error HTTP: ${response.status}`);
+//         }
+
+//         const data = await response.json();
+
+//         if (data && data.razon_social) {
+//             txtRazonSocial.value = data.razon_social;
+//         } else {
+//             alert('RUC no encontrado');
+//             txtRazonSocial.value = '';
+//         }
+
+//     } catch (error) {
+//         alert('Error al consultar RUC: ' + error.message);
+//         console.error('Error:', error);
+//     } finally {
+//         btnBuscarRUC.innerHTML = originalText;
+//         btnBuscarRUC.disabled = false;
+//     }
+// }
 
 function toggleCamposMenorEdad(esMenor) {
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
@@ -462,6 +409,20 @@ function cambiarTipoPersona(tipoPersona) {
         divCajaMenor.style.display = 'block';
         ocultarPersonaJuridica.style.display = 'block';
         document.getElementById('divBotonValidarReniec').style.display = 'block';
+
+        //habiliater campos de nombre al cambiar a persona natural
+        const txtApePat = document.getElementById('txtApePat');
+        const txtApeMat = document.getElementById('txtApeMat');
+        const txtNombre = document.getElementById('txtNombre');
+
+        txtApePat.readOnly = false;
+        txtApeMat.readOnly = false;
+        txtNombre.readOnly = false;
+
+        txtApePat.style.cursor = "";
+        txtApeMat.style.cursor = "";
+        txtNombre.style.cursor = "";
+
     } else if (tipoPersona === '2') { // Persona jurídica
         divPersonaNatural.style.display = 'none';
         divPersonaJuridica.style.display = 'block';
@@ -699,15 +660,6 @@ function validarFormulario() {
     const esMenorEdad = document.getElementById('radioMenorSi') ? document.getElementById('radioMenorSi').checked : false;
 
     // Validar tipo de persona
-    /*     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
-        if (document.getElementById('ddlTipoPersona').value === '-') {
-            mostrarError('divTipoPersona', 'Seleccione el tipo de persona');
-            esValido = false;
-        } else {
-            ocultarError('divTipoPersona');
-        }
-     */
-    // Validar tipo de persona
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
     if (ddlTipoPersona && ddlTipoPersona.value === '-') {
         mostrarError('divTipoPersona', 'Seleccione el tipo de persona');
@@ -715,24 +667,6 @@ function validarFormulario() {
     } else {
         ocultarError('divTipoPersona');
     }
-
-    // Validar tipo de documento
-    /*     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
-        if (document.getElementById('ddlTipoDocumento').value === '-') {
-            mostrarError('divTipoDocumento', 'Seleccione el tipo de documento');
-            esValido = false;
-        } else {
-            ocultarError('divTipoDocumento');
-        }
-     */
-    // Validar número de documento
-    /*     const txtnumDoc = document.getElementById('txtNumDoc');
-        if (!numDoc || numDoc.trim() === '') {
-            mostrarError('divNumDoc', 'Ingrese el número de documento');
-            esValido = false;
-        } else {
-            ocultarError('divNumDoc');
-        } */
 
     // Validar tipo de documento (solo si NO es menor de edad)
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
@@ -810,7 +744,7 @@ function ocultarError(elementId) {
 
 function enviarSolicitud() {
     if (!validarFormulario()) {
-        alert('Por favor, complete todos los campos obligatorios correctamente.');
+        alert('Por favor, completar todos los campos obligatorios.');
         return;
     }
 
@@ -843,27 +777,53 @@ function generarPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Configuración del logo
+    const logoUrl = '/solicitudes/assets/img/logo_mtpe_main.png'; // Ajusta la ruta de tu logo
+    const logoWidth = 60;
+    const logoHeight = 15;
+
     // Configurar márgenes y posiciones
     const marginLeft = 20;
     const marginRight = 20;
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPosition = 20;
+    let yPosition = 25;
 
     // ===== PÁGINA 1 =====
+    // Agregar logo en la parte superior izquierda
+    try {
+        doc.addImage(logoUrl, 'PNG', marginLeft, 15, logoWidth, logoHeight);
+        
+        // Texto de la institución al lado del logo
+        // doc.setFontSize(10);
+        // doc.setFont('helvetica', 'bold');
+        // doc.text('PERÚ', marginLeft + logoWidth + 5, 18);
+        // doc.setFontSize(9);
+        // doc.setFont('helvetica', 'normal');
+        // doc.text('Ministerio de Trabajo', marginLeft + logoWidth + 5, 23);
+        // doc.text('y Promoción del Empleo', marginLeft + logoWidth + 5, 28);
+        
+        yPosition = 50; // Ajustar posición después del encabezado con logo
+    } catch (error) {
+        console.error('Error al cargar el logo:', error);
+        // Si falla el logo, continuar sin él
+        yPosition = 30;
+    }
+
 
     // Encabezado
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    doc.text('PERÚ', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 7;
+    // doc.setFontSize(14);
+    // doc.setFont('helvetica', 'bold');
+    // doc.text('PERÚ', pageWidth / 2, yPosition, { align: 'center' });
+    // yPosition += 7;
 
-    doc.setFontSize(12);
-    doc.text('Ministerio de Trabajo y Promoción del Empleo', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 7;
+    // doc.setFontSize(12);
+    // doc.text('Ministerio de Trabajo y Promoción del Empleo', pageWidth / 2, yPosition, { align: 'center' });
+    // yPosition += 7;
 
-    doc.setFontSize(14);
+    doc.setFontSize(15);
+    doc.setFont('bold');
     doc.text('SOLICITUD DE ACCESO A LA INFORMACIÓN', pageWidth / 2, yPosition, { align: 'center' });
-    yPosition += 15;
+    yPosition += 8;
 
     // ===== IDENTIFICACIÓN DEL SOLICITANTE =====
     doc.setFontSize(12);
@@ -996,11 +956,12 @@ function generarPDF() {
         yPosition = agregarCampo('Discapacidad', datos.discapacidad, yPosition);
         yPosition = agregarCampo('Idioma', datos.lenguaMaterna, yPosition);
         yPosition = agregarCampo('Nacionalidad', datos.nacionalidad, yPosition);
+        yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
     }
 
     // Medio de notificación
-    yPosition += 3;
-    yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
+    //yPosition += 3;
+    //yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
 
     // Guardar el PDF
     const nombreArchivo = 'solicitud_acceso_informacion_' + (datos.numeroDocumento || 'sin_documento') + '.pdf';

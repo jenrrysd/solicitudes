@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Prueba de API</h1>
+    <button onclick="testRUC()">Probar RUC</button>
+    <button onclick="testDNI()">Probar DNI</button>
+    <pre id="resultado"></pre>
+
+    <script>
+        const TOKEN = 'sk_10921.ytFcmj7MvF6ZVKoEKmL9P2aAixNO8fRV';
+        
+        function testRUC() {
+            document.getElementById('resultado').textContent = 'Probando RUC...';
+            
+            fetch('https://api.decolecta.com/v1/sunat/ruc?numero=20100066603', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + TOKEN
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultado').textContent = 
+                    'EXITO RUC!\n\n' + JSON.stringify(data, null, 2);
+                alert('La API permite CORS para RUC');
+            })
+            .catch(error => {
+                document.getElementById('resultado').textContent = 
+                    'ERROR:\n\n' + error.message;
+                alert('La API bloquea CORS: ' + error.message);
+            });
+        }
+        
+        function testDNI() {
+            document.getElementById('resultado').textContent = 'Probando DNI...';
+            
+            fetch('https://api.decolecta.com/v1/reniec/dni?numero=08879918', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + TOKEN
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('resultado').textContent = 
+                    'EXITO DNI!\n\n' + JSON.stringify(data, null, 2);
+                alert('La API permite CORS para DNI');
+            })
+            .catch(error => {
+                document.getElementById('resultado').textContent = 
+                    'ERROR:\n\n' + error.message;
+                alert('La API bloquea CORS: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
