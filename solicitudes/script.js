@@ -31,6 +31,130 @@ const provinciasData = {
         { codigo: "0219", nombre: "SIHUAS" },
         { codigo: "0220", nombre: "YUNGAY" }
     ],
+    "03": [
+        { codigo: "0301", nombre: "ABANCAY" },
+        { codigo: "0302", nombre: "ANDAHUAYLAS" },
+        { codigo: "0303", nombre: "ANTABAMBA" },
+        { codigo: "0304", nombre: "AYMARAES" },
+        { codigo: "0305", nombre: "COTABAMBAS" },
+        { codigo: "0306", nombre: "CHINCHEROS" },
+        { codigo: "0307", nombre: "GRAU" }
+    ],
+    "04": [
+        { codigo: "0401", nombre: "AREQUIPA" },
+        { codigo: "0402", nombre: "CAMANA" },
+        { codigo: "0403", nombre: "CARAVELI" },
+        { codigo: "0404", nombre: "CASTILLA" },
+        { codigo: "0405", nombre: "CAYLLOMA" },
+        { codigo: "0406", nombre: "CONDESUYOS" },
+        { codigo: "0407", nombre: "ISLAY" },
+        { codigo: "0408", nombre: "LA UNION" }
+    ],
+    "05": [
+        { codigo: "0501", nombre: "HUAMANGA" },
+        { codigo: "0502", nombre: "CANGALLO" },
+        { codigo: "0503", nombre: "HUANCA SANCOS" },
+        { codigo: "0504", nombre: "HUANTA" },
+        { codigo: "0505", nombre: "LA MAR" },
+        { codigo: "0506", nombre: "LUCANAS" },
+        { codigo: "0507", nombre: "PARINACOCHAS" },
+        { codigo: "0508", nombre: "PAUCAR DEL SARA SARA" },
+        { codigo: "0509", nombre: "SUCRE" },
+        { codigo: "0510", nombre: "VICTOR FAJARDO" },
+        { codigo: "0511", nombre: "VILCAS HUAMAN" }
+    ],
+    "06": [
+        { codigo: "0601", nombre: "CAJAMARCA" },
+        { codigo: "0602", nombre: "CAJABAMBA" },
+        { codigo: "0603", nombre: "CELENDÍN" },
+        { codigo: "0604", nombre: "CHOTA" },
+        { codigo: "0605", nombre: "CONTUMAZÁ" },
+        { codigo: "0606", nombre: "CUTERVO" },
+        { codigo: "0607", nombre: "HUALGAYOC" },
+        { codigo: "0608", nombre: "JAÉN" },
+        { codigo: "0609", nombre: "SAN IGNACIO" },
+        { codigo: "0610", nombre: "SAN MARCOS" },
+        { codigo: "0611", nombre: "SAN MIGUEL" },
+        { codigo: "0612", nombre: "SAN PABLO" },
+        { codigo: "0613", nombre: "SANTA CRUZ" }
+    ],
+    "07": [
+        { codigo: "0701", nombre: "CALLAO" }
+    ],
+    "08": [
+        { codigo: "0801", nombre: "CUSCO" },
+        { codigo: "0802", nombre: "ACOMAYO" },
+        { codigo: "0803", nombre: "ANTA" },
+        { codigo: "0804", nombre: "CALCA" },
+        { codigo: "0805", nombre: "CANAS" },
+        { codigo: "0806", nombre: "CANCHIS" },
+        { codigo: "0807", nombre: "CHUMBIVILCAS" },
+        { codigo: "0808", nombre: "ESPINAR" },
+        { codigo: "0809", nombre: "LA CONVENCIÓN" },
+        { codigo: "0810", nombre: "PARURO" },
+        { codigo: "0811", nombre: "PAUCARTAMBO" },
+        { codigo: "0812", nombre: "QUISPICANCHI" },
+        { codigo: "0813", nombre: "URUBAMBA" }
+    ],
+    "09": [
+        { codigo: "0901", nombre: "HUANCAVELICA" },
+        { codigo: "0902", nombre: "ACOBAMBA" },
+        { codigo: "0903", nombre: "ANGARAES" },
+        { codigo: "0904", nombre: "CASTROVIRREYNA" },
+        { codigo: "0905", nombre: "CHURCAMPA" },
+        { codigo: "0906", nombre: "HUAYTARÁ" },
+        { codigo: "0907", nombre: "TAYACAJA" }
+    ],
+    "10": [
+        { codigo: "1001", nombre: "HUÁNUCO" },
+        { codigo: "1002", nombre: "AMBO" },
+        { codigo: "1003", nombre: "DOS DE MAYO" },
+        { codigo: "1004", nombre: "HUACAYBAMBA" },
+        { codigo: "1005", nombre: "HUAMALÍES" },
+        { codigo: "1006", nombre: "LEONCIO PRADO" },
+        { codigo: "1007", nombre: "MARAÑÓN" },
+        { codigo: "1008", nombre: "PACHITEA" },
+        { codigo: "1009", nombre: "PUERTO INCA" },
+        { codigo: "1010", nombre: "LAURICOCHA" },
+        { codigo: "1011", nombre: "YAROWILCA" }
+    ],
+    "11": [
+        { codigo: "1101", nombre: "ICA" },
+        { codigo: "1102", nombre: "CHINCHA" },
+        { codigo: "1103", nombre: "NAZCA" },
+        { codigo: "1104", nombre: "PALPA" },
+        { codigo: "1105", nombre: "PISCO" }
+    ],
+    "12": [
+        { codigo: "1201", nombre: "HUANCAYO" },
+        { codigo: "1202", nombre: "CONCEPCIÓN" },
+        { codigo: "1203", nombre: "CHANCHAMAYO" },
+        { codigo: "1204", nombre: "JAUJA" },
+        { codigo: "1205", nombre: "JUNÍN" },
+        { codigo: "1206", nombre: "SATIPO" },
+        { codigo: "1207", nombre: "TARMA" },
+        { codigo: "1208", nombre: "YAULI" },
+        { codigo: "1209", nombre: "CHUPACA" }
+    ],
+    "13": [
+        { codigo: "1301", nombre: "TRUJILLO" },
+        { codigo: "1302", nombre: "ASCOPE" },
+        { codigo: "1303", nombre: "BOLÍVAR" },
+        { codigo: "1304", nombre: "CHEPÉN" },
+        { codigo: "1305", nombre: "JULCÁN" },
+        { codigo: "1306", nombre: "OTUZCO" },
+        { codigo: "1307", nombre: "PACASMAYO" },
+        { codigo: "1308", nombre: "PATAZ" },
+        { codigo: "1309", nombre: "SÁNCHEZ CARRIÓN" },
+        { codigo: "1310", nombre: "SANTIAGO DE CHUCO" },
+        { codigo: "1311", nombre: "GRAN CHIMÚ" },
+        { codigo: "1312", nombre: "VIRÚ" }
+    ],
+    "14": [
+        { codigo: "1401", nombre: "CHICLAYO" },
+        { codigo: "1402", nombre: "FERREÑAFE" },
+        { codigo: "1403", nombre: "LAMBAYEQUE" }
+    ],
     "15": [
         { codigo: "1501", nombre: "LIMA" },
         { codigo: "1502", nombre: "BARRANCA" },
@@ -42,7 +166,92 @@ const provinciasData = {
         { codigo: "1508", nombre: "HUAURA" },
         { codigo: "1509", nombre: "OYON" },
         { codigo: "1510", nombre: "YAUYOS" }
-    ]
+    ],
+    "16": [
+        { codigo: "1601", nombre: "MAYNAS" },
+        { codigo: "1602", nombre: "ALTO AMAZONAS" },
+        { codigo: "1603", nombre: "LORETO" },
+        { codigo: "1604", nombre: "MARISCAL RAMÓN CASTILLA" },
+        { codigo: "1605", nombre: "REQUENA" },
+        { codigo: "1606", nombre: "UCAYALI" },
+        { codigo: "1607", nombre: "DATEM DEL MARAÑÓN" },
+        { codigo: "1608", nombre: "PUTUMAYO" }
+    ],
+    "17": [
+        { codigo: "1701", nombre: "TAMBOPATA" },
+        { codigo: "1702", nombre: "MANU" },
+        { codigo: "1703", nombre: "TAHUAMANU" }
+    ],
+    "18": [
+        { codigo: "1801", nombre: "MARISCAL NIETO" },
+        { codigo: "1802", nombre: "GENERAL SÁNCHEZ CERRO" },
+        { codigo: "1803", nombre: "ILO" }
+    ],
+    "19": [
+        { codigo: "1901", nombre: "PASCO" },
+        { codigo: "1902", nombre: "DANIEL ALCIDES CARRIÓN" },
+        { codigo: "1903", nombre: "OXAPAMPA" }
+    ],
+    "20": [
+        { codigo: "2001", nombre: "PIURA" },
+        { codigo: "2002", nombre: "AYABACA" },
+        { codigo: "2003", nombre: "HUANCABAMBA" },
+        { codigo: "2004", nombre: "MORROPÓN" },
+        { codigo: "2005", nombre: "PAITA" },
+        { codigo: "2006", nombre: "SULLANA" },
+        { codigo: "2007", nombre: "TALARA" },
+        { codigo: "2008", nombre: "SECHURA" }
+    ],
+    "21": [
+        { codigo: "2101", nombre: "PUNO" },
+        { codigo: "2102", nombre: "AZÁNGARO" },
+        { codigo: "2103", nombre: "CARABAYA" },
+        { codigo: "2104", nombre: "CHUCUITO" },
+        { codigo: "2105", nombre: "EL COLLAO" },
+        { codigo: "2106", nombre: "HUANCANÉ" },
+        { codigo: "2107", nombre: "LAMPA" },
+        { codigo: "2108", nombre: "MELGAR" },
+        { codigo: "2109", nombre: "MOHO" },
+        { codigo: "2110", nombre: "SAN ANTONIO DE PUTINA" },
+        { codigo: "2111", nombre: "SAN ROMÁN" },
+        { codigo: "2112", nombre: "SANDIA" },
+        { codigo: "2113", nombre: "YUNGUYO" }
+    ],
+    "22": [
+        { codigo: "2201", nombre: "MOYOBAMBA" },
+        { codigo: "2202", nombre: "BELLAVISTA" },
+        { codigo: "2203", nombre: "EL DORADO" },
+        { codigo: "2204", nombre: "HUALLAGA" },
+        { codigo: "2205", nombre: "LAMAS" },
+        { codigo: "2206", nombre: "MARISCAL CÁCERES" },
+        { codigo: "2207", nombre: "PICOTA" },
+        { codigo: "2208", nombre: "RIOJA" },
+        { codigo: "2209", nombre: "SAN MARTÍN" },
+        { codigo: "2210", nombre: "TOCACHE" }
+    ],
+    "23": [
+        { codigo: "2301", nombre: "TACNA" },
+        { codigo: "2302", nombre: "CANDARAVE" },
+        { codigo: "2303", nombre: "JORGE BASADRE" },
+        { codigo: "2304", nombre: "TARATA" }
+    ],
+    "24": [
+        { codigo: "2401", nombre: "TUMBES" },
+        { codigo: "2402", nombre: "CONTRALMIRANTE VILLAR" },
+        { codigo: "2403", nombre: "ZARUMILLA" }
+    ],
+    "25": [
+        { codigo: "2501", nombre: "CORONEL PORTILLO" },
+        { codigo: "2502", nombre: "ATALAYA" },
+        { codigo: "2503", nombre: "PADRE ABAD" },
+        { codigo: "2504", nombre: "PURÚS" }
+    ],
+    "26": [
+        { codigo: "2501", nombre: "CORONEL PORTILLO" },
+        { codigo: "2502", nombre: "ATALAYA" },
+        { codigo: "2503", nombre: "PADRE ABAD" },
+        { codigo: "2504", nombre: "PURÚS" }
+    ],
 };
 
 const distritosData = {
@@ -90,6 +299,152 @@ const distritosData = {
         { codigo: "150141", nombre: "VILLA EL SALVADOR" },
         { codigo: "150142", nombre: "VILLA MARIA DEL TRIUNFO" }
     ],
+    "1502": [ // distritos de BARRANCA
+        { codigo: "150201", nombre: "BARRANCA" },
+        { codigo: "150202", nombre: "PARAMONGA" },
+        { codigo: "150203", nombre: "PATIVILCA" },
+        { codigo: "150204", nombre: "SUPE" },
+        { codigo: "150205", nombre: "SUPE PUERTO" }
+    ],
+    "1503": [ // distrito de CAJATAMBO
+        { codigo: "150301", nombre: "CAJATAMBO" },
+        { codigo: "150302", nombre: "COPA" },
+        { codigo: "150303", nombre: "GORGOR" },
+        { codigo: "150304", nombre: "HUANCAPON" },
+        { codigo: "150305", nombre: "MANAS" }
+    ],
+    "1504": [ // distrtitos de CANTA
+        { codigo: "150401", nombre: "CANTA" },
+        { codigo: "150402", nombre: "ARAHUAY" },
+        { codigo: "150403", nombre: "HUAMANTANGA" },
+        { codigo: "150404", nombre: "HUAROS" },
+        { codigo: "150405", nombre: "LACHAQUI" },
+        { codigo: "150406", nombre: "SAN BUENAVENTURA" },
+        { codigo: "150407", nombre: "SANTA ROSA DE QUIVES" }
+    ],
+    "1505": [ // distrtitos de CAÑETE
+        { codigo: "150501", nombre: "SAN VICENTE DE CAÑETE" },
+        { codigo: "150502", nombre: "ASIA" },
+        { codigo: "150503", nombre: "CALANGO" },
+        { codigo: "150504", nombre: "CERRO AZUL" },
+        { codigo: "150505", nombre: "CHILCA" },
+        { codigo: "150506", nombre: "COAYLLO" },
+        { codigo: "150507", nombre: "IMPERIAL" },
+        { codigo: "150508", nombre: "LUNAHUANA" },
+        { codigo: "150509", nombre: "MALA" },
+        { codigo: "150510", nombre: "NUEVO IMPERIAL" },
+        { codigo: "150511", nombre: "PACARAN" },
+        { codigo: "150512", nombre: "QUILMANA" },
+        { codigo: "150513", nombre: "SAN ANTONIO" },
+        { codigo: "150514", nombre: "SAN LUIS" },
+        { codigo: "150515", nombre: "SANTA CRUZ DE FLORES" },
+        { codigo: "150516", nombre: "ZUÑIGA" }
+    ],
+    "1506": [ // distrtitos de HUARAL
+        { codigo: "150601", nombre: "HUARAL" },
+        { codigo: "150602", nombre: "ATAVILLOS ALTO" },
+        { codigo: "150603", nombre: "ATAVILLOS BAJO" },
+        { codigo: "150604", nombre: "AUCALLAMA" },
+        { codigo: "150605", nombre: "CHANCAY" },
+        { codigo: "150606", nombre: "IHUARI" },
+        { codigo: "150607", nombre: "LAMPIAN" },
+        { codigo: "150608", nombre: "PACARAOS" },
+        { codigo: "150609", nombre: "SAN MIGUEL DE ACOS" },
+        { codigo: "150610", nombre: "SANTA CRUZ DE ANDAMARCA" },
+        { codigo: "150611", nombre: "SUMBILCA" },
+        { codigo: "150612", nombre: "VEINTISIETE DE NOVIEMBRE" }
+    ],
+    "1507": [ // distritos de HUAROCHIRI
+        { codigo: "150701", nombre: "MATUCANA" },
+        { codigo: "150702", nombre: "ANTIOQUIA" },
+        { codigo: "150703", nombre: "CALLAHUANCA" },
+        { codigo: "150704", nombre: "CARAMPOMA" },
+        { codigo: "150705", nombre: "CHICLA" },
+        { codigo: "150706", nombre: "CUENCA" },
+        { codigo: "150707", nombre: "HUACHUPAMPA" },
+        { codigo: "150708", nombre: "HUANZA" },
+        { codigo: "150709", nombre: "HUAROCHIRI" },
+        { codigo: "150710", nombre: "LAHUAYTAMBO" },
+        { codigo: "150711", nombre: "LANGA" },
+        { codigo: "150712", nombre: "LARAOS" },
+        { codigo: "150713", nombre: "MARIATANA" },
+        { codigo: "150714", nombre: "RICARDO PALMA" },
+        { codigo: "150715", nombre: "SAN ANDRES DE TUPICOCHA" },
+        { codigo: "150716", nombre: "SAN ANTONIO" },
+        { codigo: "150717", nombre: "SAN BARTOLOME" },
+        { codigo: "150718", nombre: "SAN DAMIAN" },
+        { codigo: "150719", nombre: "SAN JUAN DE IRIS" },
+        { codigo: "150720", nombre: "SAN JUAN DE TANTARANCHE" },
+        { codigo: "150721", nombre: "SAN LORENZO DE QUINTI" },
+        { codigo: "150722", nombre: "SAN MATEO" },
+        { codigo: "150723", nombre: "SAN MATEO DE OTAO" },
+        { codigo: "150724", nombre: "SAN PEDRO DE CASTA" },
+        { codigo: "150725", nombre: "SAN PEDRO DE HUANCAYRE" },
+        { codigo: "150726", nombre: "SANGALLAYA" },
+        { codigo: "150727", nombre: "SANTA CRUZ DE COCACHACRA" },
+        { codigo: "150728", nombre: "SANTA EULALIA" },
+        { codigo: "150729", nombre: "SANTIAGO DE ANCHUCAYA" },
+        { codigo: "150730", nombre: "SANTIAGO DE TUNA" },
+        { codigo: "150731", nombre: "SANTO DOMINGO DE LOS OLLEROS" },
+        { codigo: "150732", nombre: "SURCO" }
+    ],
+    "1508": [ // distritos de HUAURA
+        { codigo: "150801", nombre: "HUACHO" },
+        { codigo: "150802", nombre: "AMBAR" },
+        { codigo: "150803", nombre: "CALETA DE CARQUIN" },
+        { codigo: "150804", nombre: "CHECRAS" },
+        { codigo: "150805", nombre: "HUALMAY" },
+        { codigo: "150806", nombre: "HUAURA" },
+        { codigo: "150807", nombre: "LEONCIO PRADO" },
+        { codigo: "150808", nombre: "PACCHO" },
+        { codigo: "150809", nombre: "SANTA LEONOR" },
+        { codigo: "150810", nombre: "SANTA MARIA" },
+        { codigo: "150811", nombre: "SAYAN" },
+        { codigo: "150812", nombre: "VEGUETA" }
+    ],
+    "1509": [ // distritos de OYON
+        { codigo: "150901", nombre: "OYON" },
+        { codigo: "150902", nombre: "ANDAJES" },
+        { codigo: "150903", nombre: "CAUJUL" },
+        { codigo: "150904", nombre: "COCHAMARCA" },
+        { codigo: "150905", nombre: "NAVAN" },
+        { codigo: "150906", nombre: "PACHANGARA" }
+    ],
+    "1510": [ // distritos de YAUYOS
+        { codigo: "151001", nombre: "YAUYOS" },
+        { codigo: "151002", nombre: "ALIS" },
+        { codigo: "151003", nombre: "ALLAUCA" },
+        { codigo: "151004", nombre: "AYAVIRI" },
+        { codigo: "151005", nombre: "AZANGARO" },
+        { codigo: "151006", nombre: "CACRA" },
+        { codigo: "151007", nombre: "CARANIA" },
+        { codigo: "151008", nombre: "CATAHUASI" },
+        { codigo: "151009", nombre: "CHOCOS" },
+        { codigo: "151010", nombre: "COCHAS" },
+        { codigo: "151011", nombre: "COLONIA" },
+        { codigo: "151012", nombre: "HONGOS" },
+        { codigo: "151013", nombre: "HUAMPARA" },
+        { codigo: "151014", nombre: "HUANCAYA" },
+        { codigo: "151015", nombre: "HUANGASCAR" },
+        { codigo: "151016", nombre: "HUANTAN" },
+        { codigo: "151017", nombre: "HUAÑEC" },
+        { codigo: "151018", nombre: "LARAOS" },
+        { codigo: "151019", nombre: "LINCHA" },
+        { codigo: "151020", nombre: "MADEAN" },
+        { codigo: "151021", nombre: "MIRAFLORES" },
+        { codigo: "151022", nombre: "OMAS" },
+        { codigo: "151023", nombre: "PUTINZA" },
+        { codigo: "151024", nombre: "QUINCHES" },
+        { codigo: "151025", nombre: "QUINOCAY" },
+        { codigo: "151026", nombre: "SAN JOAQUIN" },
+        { codigo: "151027", nombre: "SAN PEDRO DE PILAS" },
+        { codigo: "151028", nombre: "TANTA" },
+        { codigo: "151029", nombre: "TAURIPAMPA" },
+        { codigo: "151030", nombre: "TOMAS" },
+        { codigo: "151031", nombre: "TUPE" },
+        { codigo: "151032", nombre: "VIÑAC" },
+        { codigo: "151033", nombre: "VITIS" }
+    ],
     "0101": [
         { codigo: "010101", nombre: "CHACHAPOYAS" },
         { codigo: "010102", nombre: "ASUNCION" },
@@ -112,6 +467,306 @@ const distritosData = {
         { codigo: "010119", nombre: "SAN ISIDRO DE MAINO" },
         { codigo: "010120", nombre: "SOLOCO" },
         { codigo: "010121", nombre: "SONCHE" }
+    ],
+    "0201": [
+        { codigo: "020101", nombre: "HUARAZ" },
+        { codigo: "020102", nombre: "COCHABAMBA" },
+        { codigo: "020103", nombre: "COLCABAMBA" },
+        { codigo: "020104", nombre: "HUANCHAY" },
+        { codigo: "020105", nombre: "INDEPENDENCIA" },
+        { codigo: "020106", nombre: "JANGAS" },
+        { codigo: "020107", nombre: "LA LIBERTAD" },
+        { codigo: "020108", nombre: "OLLEROS" },
+        { codigo: "020109", nombre: "PAMPAS" },
+        { codigo: "020110", nombre: "PARIACOTO" },
+        { codigo: "020111", nombre: "PIRA" },
+        { codigo: "020112", nombre: "TARICA" }
+    ],
+    "0202": [ // AIJA
+        { codigo: "020201", nombre: "AIJA" },
+        { codigo: "020202", nombre: "CORIS" },
+        { codigo: "020203", nombre: "HUACLLAN" },
+        { codigo: "020204", nombre: "LA MERCED" },
+        { codigo: "020205", nombre: "SUCCHA" }
+    ],
+    "0203": [ // ANTONIO RAYMONDI
+        { codigo: "020301", nombre: "LLAMELLIN" },
+        { codigo: "020302", nombre: "ACZO" },
+        { codigo: "020303", nombre: "CHACCHO" },
+        { codigo: "020304", nombre: "CHINGAS" },
+        { codigo: "020305", nombre: "MIRGAS" },
+        { codigo: "020306", nombre: "SAN JUAN DE RONTOY" }
+    ],
+    "0204": [ // ASUNCION
+        { codigo: "020401", nombre: "CHACAS" },
+        { codigo: "020402", nombre: "ACOCHACA" }
+    ],
+    "0205": [ // BOLOGNESI
+        { codigo: "020501", nombre: "CHIQUIAN" },
+        { codigo: "020502", nombre: "ABELARDO PARDO LEZAMETA" },
+        { codigo: "020503", nombre: "ANTONIO RAYMONDI" },
+        { codigo: "020504", nombre: "AQUIA" },
+        { codigo: "020505", nombre: "CAJACAY" },
+        { codigo: "020506", nombre: "CANIS" },
+        { codigo: "020507", nombre: "COLQUIOC" },
+        { codigo: "020508", nombre: "HUALLANCA" },
+        { codigo: "020509", nombre: "HUASTA" },
+        { codigo: "020510", nombre: "HUAYLLACAYAN" },
+        { codigo: "020511", nombre: "LA PRIMAVERA" },
+        { codigo: "020512", nombre: "MANGAS" },
+        { codigo: "020513", nombre: "PACLLON" },
+        { codigo: "020514", nombre: "SAN MIGUEL DE CORPANQUI" },
+        { codigo: "020515", nombre: "TICLLOS" }
+    ],
+    "0206": [ // CARHUAZ
+        { codigo: "020601", nombre: "CARHUAZ" },
+        { codigo: "020602", nombre: "ACOPAMPA" },
+        { codigo: "020603", nombre: "AMASHCA" },
+        { codigo: "020604", nombre: "ANTA" },
+        { codigo: "020605", nombre: "ATAQUERO" },
+        { codigo: "020606", nombre: "MARCARA" },
+        { codigo: "020607", nombre: "PARIAHUANCA" },
+        { codigo: "020608", nombre: "SAN MIGUEL DE ACO" },
+        { codigo: "020609", nombre: "SHILLA" },
+        { codigo: "020610", nombre: "TINCO" },
+        { codigo: "020611", nombre: "YUNGAR" }
+    ],
+    "0207": [ // CARLOS FERMIN FITZCARRALD
+        { codigo: "020701", nombre: "SAN LUIS" },
+        { codigo: "020702", nombre: "SAN NICOLAS" },
+        { codigo: "020703", nombre: "YAUYA" }
+    ],
+    "0208": [ // CASMA
+        { codigo: "020801", nombre: "CASMA" },
+        { codigo: "020802", nombre: "BUENA VISTA ALTA" },
+        { codigo: "020803", nombre: "COMANDANTE NOEL" },
+        { codigo: "020804", nombre: "YAUTAN" }
+    ],
+    "0209": [ // CORONGO
+        { codigo: "020901", nombre: "CORONGO" },
+        { codigo: "020902", nombre: "ACO" },
+        { codigo: "020903", nombre: "BAMBAS" },
+        { codigo: "020904", nombre: "CUSCA" },
+        { codigo: "020905", nombre: "LA PAMPA" },
+        { codigo: "020906", nombre: "YANAC" },
+        { codigo: "020907", nombre: "YUPAN" }
+    ],
+    "0210": [ // HUARI
+        { codigo: "021001", nombre: "HUARI" },
+        { codigo: "021002", nombre: "ANRA" },
+        { codigo: "021003", nombre: "CAJAY" },
+        { codigo: "021004", nombre: "CHAVIN DE HUANTAR" },
+        { codigo: "021005", nombre: "HUACACHI" },
+        { codigo: "021006", nombre: "HUACCHIS" },
+        { codigo: "021007", nombre: "HUACHIS" },
+        { codigo: "021008", nombre: "HUANTAR" },
+        { codigo: "021009", nombre: "MASIN" },
+        { codigo: "021010", nombre: "PAUCAS" },
+        { codigo: "021011", nombre: "PONTO" },
+        { codigo: "021012", nombre: "RAHUAPAMPA" },
+        { codigo: "021013", nombre: "RAPAYAN" },
+        { codigo: "021014", nombre: "SAN MARCOS" },
+        { codigo: "021015", nombre: "SAN PEDRO DE CHANA" },
+        { codigo: "021016", nombre: "UCO" }
+    ],
+    "0211": [ // HUARMEY
+        { codigo: "021101", nombre: "HUARMEY" },
+        { codigo: "021102", nombre: "COCHAPETI" },
+        { codigo: "021103", nombre: "CULEBRAS" },
+        { codigo: "021104", nombre: "HUAYAN" },
+        { codigo: "021105", nombre: "MALVAS" }
+    ],
+    "0212": [ // HUAYLAS
+        { codigo: "021201", nombre: "CARAZ" },
+        { codigo: "021202", nombre: "HUALLANCA" },
+        { codigo: "021203", nombre: "HUATA" },
+        { codigo: "021204", nombre: "HUAYLAS" },
+        { codigo: "021205", nombre: "MATO" },
+        { codigo: "021206", nombre: "PAMPAROMAS" },
+        { codigo: "021207", nombre: "PUEBLO LIBRE" },
+        { codigo: "021208", nombre: "SANTA CRUZ" },
+        { codigo: "021209", nombre: "SANTO TORIBIO" },
+        { codigo: "021210", nombre: "YURACMARCA" }
+    ],
+    "0213": [ // MARISCAL LUZURIAGA
+        { codigo: "021301", nombre: "PISCOBAMBA" },
+        { codigo: "021302", nombre: "CASCA" },
+        { codigo: "021303", nombre: "ELEAZAR GUZMAN BARRON" },
+        { codigo: "021304", nombre: "FIDEL OLIVAS ESCUDERO" },
+        { codigo: "021305", nombre: "LLAMA" },
+        { codigo: "021306", nombre: "LLUMPA" },
+        { codigo: "021307", nombre: "LUCMA" },
+        { codigo: "021308", nombre: "MUSGA" }
+    ],
+    "0214": [ // OCROS
+        { codigo: "021401", nombre: "OCROS" },
+        { codigo: "021402", nombre: "ACAS" },
+        { codigo: "021403", nombre: "CAJAMARQUILLA" },
+        { codigo: "021404", nombre: "CARHUAPAMPA" },
+        { codigo: "021405", nombre: "COCHAS" },
+        { codigo: "021406", nombre: "CONGAS" },
+        { codigo: "021407", nombre: "LLIPA" },
+        { codigo: "021408", nombre: "SAN CRISTOBAL DE RAJAN" },
+        { codigo: "021409", nombre: "SAN PEDRO" },
+        { codigo: "021410", nombre: "SANTIAGO DE CHILCAS" }
+    ],
+    "0215": [ // PALLASCA
+        { codigo: "021501", nombre: "CABANA" },
+        { codigo: "021502", nombre: "BOLOGNESI" },
+        { codigo: "021503", nombre: "CONCHUCOS" },
+        { codigo: "021504", nombre: "HUACASCHUQUE" },
+        { codigo: "021505", nombre: "HUANDOVAL" },
+        { codigo: "021506", nombre: "LACABAMBA" },
+        { codigo: "021507", nombre: "LLAPO" },
+        { codigo: "021508", nombre: "PALLASCA" },
+        { codigo: "021509", nombre: "PAMPAS" },
+        { codigo: "021510", nombre: "SANTA ROSA" },
+        { codigo: "021511", nombre: "TAUCA" }
+    ],
+    "0216": [ // POMABAMBA
+        { codigo: "021601", nombre: "POMABAMBA" },
+        { codigo: "021602", nombre: "HUAYLLAN" },
+        { codigo: "021603", nombre: "PAROBAMBA" },
+        { codigo: "021604", nombre: "QUINUABAMBA" }
+    ],
+    "0217": [ // RECUAY
+        { codigo: "021701", nombre: "RECUAY" },
+        { codigo: "021702", nombre: "CATAC" },
+        { codigo: "021703", nombre: "COTAPARACO" },
+        { codigo: "021704", nombre: "HUAYLLAPAMPA" },
+        { codigo: "021705", nombre: "LLACLLIN" },
+        { codigo: "021706", nombre: "MARCA" },
+        { codigo: "021707", nombre: "PAMPAS CHICO" },
+        { codigo: "021708", nombre: "PARARIN" },
+        { codigo: "021709", nombre: "TAPACOCHA" },
+        { codigo: "021710", nombre: "TICAPAMPA" }
+    ],
+    "0218": [ // SANTA
+        { codigo: "021801", nombre: "CHIMBOTE" },
+        { codigo: "021802", nombre: "CACERES DEL PERU" },
+        { codigo: "021803", nombre: "COISHCO" },
+        { codigo: "021804", nombre: "MACATE" },
+        { codigo: "021805", nombre: "MORO" },
+        { codigo: "021806", nombre: "NEPEÑA" },
+        { codigo: "021807", nombre: "SAMANCO" },
+        { codigo: "021808", nombre: "SANTA" },
+        { codigo: "021809", nombre: "NUEVO CHIMBOTE" }
+    ],
+    "0219": [ // SIHUAS
+        { codigo: "021901", nombre: "SIHUAS" },
+        { codigo: "021902", nombre: "ACOBAMBA" },
+        { codigo: "021903", nombre: "ALFONSO UGARTE" },
+        { codigo: "021904", nombre: "CASHAPAMPA" },
+        { codigo: "021905", nombre: "CHINGALPO" },
+        { codigo: "021906", nombre: "HUAYLLABAMBA" },
+        { codigo: "021907", nombre: "QUICHES" },
+        { codigo: "021908", nombre: "RAGASH" },
+        { codigo: "021909", nombre: "SAN JUAN" },
+        { codigo: "021910", nombre: "SICSIBAMBA" }
+    ],
+    "0220": [ // YUNGAY
+        { codigo: "022001", nombre: "YUNGAY" },
+        { codigo: "022002", nombre: "CASCAPARA" },
+        { codigo: "022003", nombre: "MANCOS" },
+        { codigo: "022004", nombre: "MATACOTO" },
+        { codigo: "022005", nombre: "QUILLO" },
+        { codigo: "022006", nombre: "RANRAHIRCA" },
+        { codigo: "022007", nombre: "SHUPLUY" },
+        { codigo: "022008", nombre: "YANAMA" }
+    ],
+    "0301": [ //abancay
+        { codigo: "030101", nombre: "ABANCAY" },
+        { codigo: "030102", nombre: "CHACOCHE" },
+        { codigo: "030103", nombre: "CIRCA" },
+        { codigo: "030104", nombre: "CURAHUASI" },
+        { codigo: "030105", nombre: "HUANIPACA" },
+        { codigo: "030106", nombre: "LAMBRAMA" },
+        { codigo: "030107", nombre: "PICHIRHUA" },
+        { codigo: "030108", nombre: "SAN PEDRO DE CACHORA" },
+        { codigo: "030109", nombre: "TAMBURCO" }
+    ],
+    "0302": [ //andahuylas
+        { codigo: "030201", nombre: "ANDAHUAYLAS" },
+        { codigo: "030202", nombre: "ANDARAPA" },
+        { codigo: "030203", nombre: "CHIARA" },
+        { codigo: "030204", nombre: "HUANCARAMA" },
+        { codigo: "030205", nombre: "HUANCARAY" },
+        { codigo: "030206", nombre: "HUAYANA" },
+        { codigo: "030207", nombre: "KISHUARA" },
+        { codigo: "030208", nombre: "PACOBAMBA" },
+        { codigo: "030209", nombre: "PACUCHA" },
+        { codigo: "030210", nombre: "PAMPACHIRI" },
+        { codigo: "030211", nombre: "POMACOCHA" },
+        { codigo: "030212", nombre: "SAN ANTONIO DE CACHI" },
+        { codigo: "030213", nombre: "SAN JERÓNIMO" },
+        { codigo: "030214", nombre: "SAN MIGUEL DE CHACCRAMPA" },
+        { codigo: "030215", nombre: "SANTA MARÍA DE CHICMO" },
+        { codigo: "030216", nombre: "TALAVERA" },
+        { codigo: "030217", nombre: "TUMAY HUARACA" },
+        { codigo: "030218", nombre: "TURPO" },
+        { codigo: "030219", nombre: "KAQUIABAMBA" }
+    ],
+    "0303": [
+        { codigo: "030301", nombre: "ANTABAMBA" },
+        { codigo: "030302", nombre: "EL ORO" },
+        { codigo: "030303", nombre: "HUAQUIRCA" },
+        { codigo: "030304", nombre: "JUAN ESPINOZA MEDRANO" },
+        { codigo: "030305", nombre: "OROPESA" },
+        { codigo: "030306", nombre: "PACHACONAS" },
+        { codigo: "030307", nombre: "SABAINO" }
+    ],
+    "0304": [ // AYMARAES
+        { codigo: "030401", nombre: "CHALHUANCA" },
+        { codigo: "030402", nombre: "CAPAYA" },
+        { codigo: "030403", nombre: "CARAYBAMBA" },
+        { codigo: "030404", nombre: "CHAPIMARCA" },
+        { codigo: "030405", nombre: "COLCABAMBA" },
+        { codigo: "030406", nombre: "COTARUSE" },
+        { codigo: "030407", nombre: "HUAYLLO" },
+        { codigo: "030408", nombre: "JUSTO APU SAHUARAURA" },
+        { codigo: "030409", nombre: "LUCRE" },
+        { codigo: "030410", nombre: "POCOHUANCA" },
+        { codigo: "030411", nombre: "SAN JUAN DE CHACÑA" },
+        { codigo: "030412", nombre: "SAÑAYCA" },
+        { codigo: "030413", nombre: "SORAYA" },
+        { codigo: "030414", nombre: "TAPAIRIHUA" },
+        { codigo: "030415", nombre: "TINTAY" },
+        { codigo: "030416", nombre: "TORAYA" },
+        { codigo: "030417", nombre: "YANACA" }
+    ],
+    "0305": [ // COTABAMBAS
+        { codigo: "030501", nombre: "TAMBOBAMBA" },
+        { codigo: "030502", nombre: "COTABAMBAS" },
+        { codigo: "030503", nombre: "COYLLURQUI" },
+        { codigo: "030504", nombre: "HAQUIRA" },
+        { codigo: "030505", nombre: "MARA" },
+        { codigo: "030506", nombre: "CHALLHUAHUACHO" }
+    ],
+    "0306": [ // CHINCHEROS
+        { codigo: "030601", nombre: "CHINCHEROS" },
+        { codigo: "030602", nombre: "ANCO_HUALLO" },
+        { codigo: "030603", nombre: "COCHARCAS" },
+        { codigo: "030604", nombre: "HUACCANA" },
+        { codigo: "030605", nombre: "OCOBAMBA" },
+        { codigo: "030606", nombre: "ONGOY" },
+        { codigo: "030607", nombre: "URANMARCA" },
+        { codigo: "030608", nombre: "RANRACANCHA" }
+    ],
+    "0307": [ // GRAU
+        { codigo: "030701", nombre: "CHUQUIBAMBILLA" },
+        { codigo: "030702", nombre: "CURPAHUASI" },
+        { codigo: "030703", nombre: "GAMARRA" },
+        { codigo: "030704", nombre: "HUAYLLATI" },
+        { codigo: "030705", nombre: "MAMARA" },
+        { codigo: "030706", nombre: "MICAELA BASTIDAS" },
+        { codigo: "030707", nombre: "PATAYPAMPA" },
+        { codigo: "030708", nombre: "PROGRESO" },
+        { codigo: "030709", nombre: "SAN ANTONIO" },
+        { codigo: "030710", nombre: "SANTA ROSA" },
+        { codigo: "030711", nombre: "TURPAY" },
+        { codigo: "030712", nombre: "VILCABAMBA" },
+        { codigo: "030713", nombre: "VIRUNDO" },
+        { codigo: "030714", nombre: "CURASCO" }
     ]
 };
 
@@ -199,6 +854,45 @@ function inicializarEventos() {
     }
     inicializarConsultaRUC(); // ← Agrega esta línea
 }
+
+// Agregar esta función al inicio del archivo script.js (después de las constantes)
+class GeneradorNumerosExpediente {
+    constructor() {
+        this.claveStorage = 'ultimoNumeroExpediente';
+        this.obtenerNumeroActual();
+    }
+
+    obtenerNumeroActual() {
+        const numeroGuardado = localStorage.getItem(this.claveStorage);
+        if (numeroGuardado) {
+            this.contador = parseInt(numeroGuardado);
+        } else {
+            // Iniciar desde 214636 para que el primero sea 214637
+            this.contador = 214636;
+            this.guardarNumeroActual();
+        }
+    }
+
+    generarSiguienteNumero() {
+        this.contador++;
+        this.guardarNumeroActual();
+        return this.contador.toString().padStart(7, '0');
+    }
+
+    guardarNumeroActual() {
+        localStorage.setItem(this.claveStorage, this.contador.toString());
+    }
+
+    obtenerNumeroFormateado() {
+        const añoActual = new Date().getFullYear();
+        const numeroSecuencial = this.generarSiguienteNumero();
+        return `${añoActual}-${numeroSecuencial}`;
+    }
+}
+
+// Crear instancia global del generador
+const generadorExpediente = new GeneradorNumerosExpediente();
+
 
 function inicializarFormulario() {
     // Inicializar contadores de caracteres
@@ -792,7 +1486,7 @@ function generarPDF() {
     // Agregar logo en la parte superior izquierda
     try {
         doc.addImage(logoUrl, 'PNG', marginLeft, 15, logoWidth, logoHeight);
-        
+
         // Texto de la institución al lado del logo
         // doc.setFontSize(10);
         // doc.setFont('helvetica', 'bold');
@@ -801,7 +1495,7 @@ function generarPDF() {
         // doc.setFont('helvetica', 'normal');
         // doc.text('Ministerio de Trabajo', marginLeft + logoWidth + 5, 23);
         // doc.text('y Promoción del Empleo', marginLeft + logoWidth + 5, 28);
-        
+
         yPosition = 50; // Ajustar posición después del encabezado con logo
     } catch (error) {
         console.error('Error al cargar el logo:', error);
@@ -964,10 +1658,28 @@ function generarPDF() {
     //yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
 
     // Guardar el PDF
-    const nombreArchivo = 'solicitud_acceso_informacion_' + (datos.numeroDocumento || 'sin_documento') + '.pdf';
-    doc.save(nombreArchivo);
-}
+    //     const nombreArchivo = 'solicitud_acceso_informacion_' + (datos.numeroDocumento || 'sin_documento') + '.pdf';
+    //     doc.save(nombreArchivo);
+    // }
+    // Generar número de expediente único
+    const numeroExpediente = generadorExpediente.obtenerNumeroFormateado();
 
+    // Guardar el PDF con el nombre en formato: 2025-0214637.pdf
+    const nombreArchivo = numeroExpediente + '.pdf';
+    doc.save(nombreArchivo);
+
+    // Mostrar el número de expediente al usuario
+    setTimeout(() => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Solicitud Registrada',
+            html: `Su solicitud ha sido generada correctamente.<br><br>
+                    <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
+                    <strong>Archivo:</strong> ${nombreArchivo}`,
+            confirmButtonText: 'Aceptar'
+        });
+    }, 500);
+}
 function recopilarDatosFormulario() {
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
@@ -975,6 +1687,7 @@ function recopilarDatosFormulario() {
     const ddlProvincia = document.getElementById('ddlProvincia');
     const ddlDistrito = document.getElementById('ddlDistrito');
     const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
+    const ddlUnidadOrganica = document.getElementById('ddlUnidadOrganica')
     const ddlFormaNotificacion = document.getElementById('ddlFormaNotificacion');
     const vSexo = document.getElementById('vSexo');
     const vGrupoEtnico = document.getElementById('vGrupoEtnico');
@@ -1034,7 +1747,7 @@ function recopilarDatosFormulario() {
         lenguaMaterna: lenguaMaternaFormateada,
         nacionalidad: nacionalidad === 'PERUANA' ? 'PERÚ' : nacionalidad
     };
-}
+};
 
 function limpiarFormulario() {
     // Limpiar campos básicos
@@ -1052,6 +1765,7 @@ function limpiarFormulario() {
     document.getElementById('txtDescripcion').value = '';
     document.getElementById('txtBusquedaInfo').value = '';
     document.getElementById('ddlFormaEntrega').value = '-';
+    document.getElementById('ddlUnidadOrganica').value = '-';
     document.getElementById('ddlFormaNotificacion').value = '-';
     document.getElementById('txtTelefono').value = '';
     document.getElementById('txtCelular').value = '';
@@ -1126,3 +1840,4 @@ function limpiarFormulario() {
     // Reinicializar tipos de documento
     inicializarTiposDocumento();
 }
+
