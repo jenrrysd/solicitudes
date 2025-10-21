@@ -1459,7 +1459,7 @@ function enviarSolicitud() {
     }, 2000);
 }
 
-function generarPDF() {
+async function generarPDF() {
     // En un caso real, aquí se usaría una librería como jsPDF
     // Para este ejemplo, simulamos la generación del PDF
     const datos = recopilarDatosFormulario();
@@ -1471,51 +1471,38 @@ function generarPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Configuración del logo
-    const logoUrl = '/solicitudes/assets/img/logo_mtpe_main.png'; // Ajusta la ruta de tu logo
+    //doc.addImage(image, 'png', 60, 15)
+    const logoUrl = './assets/img/logo_mtpe_main.png'; // Ajusta la ruta de tu logo
     const logoWidth = 60;
-    const logoHeight = 15;
+    const logoHeight = 13;
 
     // Configurar márgenes y posiciones
     const marginLeft = 20;
     const marginRight = 20;
     const pageWidth = doc.internal.pageSize.getWidth();
-    let yPosition = 25;
+    let yPosition = 42;
 
-    // ===== PÁGINA 1 =====
-    // Agregar logo en la parte superior izquierda
-    try {
-        doc.addImage(logoUrl, 'PNG', marginLeft, 15, logoWidth, logoHeight);
-
-        // Texto de la institución al lado del logo
-        // doc.setFontSize(10);
-        // doc.setFont('helvetica', 'bold');
-        // doc.text('PERÚ', marginLeft + logoWidth + 5, 18);
-        // doc.setFontSize(9);
-        // doc.setFont('helvetica', 'normal');
-        // doc.text('Ministerio de Trabajo', marginLeft + logoWidth + 5, 23);
-        // doc.text('y Promoción del Empleo', marginLeft + logoWidth + 5, 28);
-
-        yPosition = 50; // Ajustar posición después del encabezado con logo
-    } catch (error) {
-        console.error('Error al cargar el logo:', error);
-        // Si falla el logo, continuar sin él
-        yPosition = 30;
-    }
-
-
-    // Encabezado
-    // doc.setFontSize(14);
-    // doc.setFont('helvetica', 'bold');
-    // doc.text('PERÚ', pageWidth / 2, yPosition, { align: 'center' });
-    // yPosition += 7;
-
-    // doc.setFontSize(12);
-    // doc.text('Ministerio de Trabajo y Promoción del Empleo', pageWidth / 2, yPosition, { align: 'center' });
-    // yPosition += 7;
+    // Esperar a que la imagen se cargue antes de continuar
+    await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = function () {
+            try {
+                doc.addImage(img, 'PNG', marginLeft, 14, logoWidth, logoHeight);
+                console.log('Logo cargado correctamente');
+            } catch (error) {
+                console.error('Error al agregar el logo al PDF:', error);
+            }
+            resolve();
+        };
+        img.onerror = function () {
+            console.error('Error al cargar la imagen del logo, se omitirá');
+            resolve(); // Continuar incluso si falla
+        };
+        img.src = logoUrl;
+    });
 
     doc.setFontSize(15);
-    doc.setFont('bold');
+    doc.setFont('helvetica', 'bold');
     doc.text('SOLICITUD DE ACCESO A LA INFORMACIÓN', pageWidth / 2, yPosition, { align: 'center' });
     yPosition += 8;
 
@@ -1653,14 +1640,7 @@ function generarPDF() {
         yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
     }
 
-    // Medio de notificación
-    //yPosition += 3;
-    //yPosition = agregarCampo('Medio de notificación', datos.formaNotificacion, yPosition);
 
-    // Guardar el PDF
-    //     const nombreArchivo = 'solicitud_acceso_informacion_' + (datos.numeroDocumento || 'sin_documento') + '.pdf';
-    //     doc.save(nombreArchivo);
-    // }
     // Generar número de expediente único
     const numeroExpediente = generadorExpediente.obtenerNumeroFormateado();
 
@@ -1680,6 +1660,7 @@ function generarPDF() {
         });
     }, 500);
 }
+
 function recopilarDatosFormulario() {
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
@@ -1734,7 +1715,7 @@ function recopilarDatosFormulario() {
         distrito: ddlDistrito.options[ddlDistrito.selectedIndex].text,
         direccion: document.getElementById('txtDomicilio').value.toUpperCase(),
         descripcion: document.getElementById('txtDescripcion').value.toUpperCase(),
-        busquedaInfo: document.getElementById('txtBusquedaInfo').value,
+        busquedaInfo: document.getElementById('txtBusquedaInfo').value.toUpperCase(),
         formaEntrega: ddlFormaEntrega.options[ddlFormaEntrega.selectedIndex].text,
         formaNotificacion: ddlFormaNotificacion.options[ddlFormaNotificacion.selectedIndex].text,
         telefono: document.getElementById('txtTelefono').value,
