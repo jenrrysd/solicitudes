@@ -902,6 +902,9 @@ function inicializarFormulario() {
     // Inicializar tipos de documento
     inicializarTiposDocumento();
 
+    // Asegurar que las opciones largas del select muestren tooltip y permitan wrap visual
+    setOptionTitlesForUnidadOrganica();
+
     // Configurar eventos para los campos de texto
     document.getElementById('txtDescripcion').addEventListener('input', function () {
         actualizarContador('txtDescripcion', 'lblContador', 499);
@@ -912,6 +915,19 @@ function inicializarFormulario() {
     });
 }
 
+// Agrega el atributo title a cada option de ddlUnidadOrganica para mostrar el texto completo en tooltip
+function setOptionTitlesForUnidadOrganica() {
+    const ddl = document.getElementById('ddlUnidadOrganica');
+    if (!ddl) return;
+    for (let i = 0; i < ddl.options.length; i++) {
+        try {
+            ddl.options[i].title = ddl.options[i].text;
+        } catch (e) {
+            // algunos navegadores restringen propiedades de option; ignorar errores
+        }
+    }
+}
+
 
 // Inicializar eventos RUC
 function inicializarConsultaRUC() {
@@ -919,11 +935,64 @@ function inicializarConsultaRUC() {
     if (ddlTipoDocumento) {
         ddlTipoDocumento.addEventListener('change', function () {
             toggleBotonBuscarRUC(this.value);
+            configurarValidacionNumDoc(this.value);
         });
     }
 
     // Inicializar estado del botón
-    toggleBotonBuscarRUC(document.getElementById('ddlTipoDocumento').value);
+    const tipoInicial = document.getElementById('ddlTipoDocumento').value;
+    toggleBotonBuscarRUC(tipoInicial);
+    configurarValidacionNumDoc(tipoInicial);
+}
+
+// Configura validación y comportamiento del input de número de documento
+function configurarValidacionNumDoc(tipoDocumento) {
+    const txtNumDoc = document.getElementById('txtNumDoc');
+    if (!txtNumDoc) return;
+
+    // remover listener previo asignando oninput directamente
+    let max = 15; // default
+    let placeholder = '';
+
+    if (tipoDocumento === '1') { // DNI
+        max = 8;
+        placeholder = 'Solo números (8 dígitos)';
+    } else if (tipoDocumento === '6') { // RUC
+        max = 11;
+        placeholder = 'Solo números (11 dígitos)';
+    } else {
+        max = 15;
+        placeholder = 'Ingrese número de documento';
+    }
+
+    txtNumDoc.maxLength = max;
+    txtNumDoc.setAttribute('inputmode', 'numeric');
+    txtNumDoc.setAttribute('pattern', '\\d*');
+    txtNumDoc.placeholder = placeholder;
+
+    txtNumDoc.oninput = function (e) {
+        const before = e.target.value;
+        // eliminar todo lo que no sea dígito
+        let v = before.replace(/\D+/g, '');
+        if (v.length > max) v = v.slice(0, max);
+        if (v !== before) {
+            e.target.value = v;
+        }
+    };
+
+    // prevenir pegar textos no numéricos
+    txtNumDoc.onpaste = function (e) {
+        const paste = (e.clipboardData || window.clipboardData).getData('text');
+        if (!/^[0-9]+$/.test(paste)) {
+            e.preventDefault();
+            // pegar solo dígitos
+            const digits = paste.replace(/\D+/g, '').slice(0, max);
+            const start = this.selectionStart || 0;
+            const end = this.selectionEnd || 0;
+            const newVal = this.value.slice(0, start) + digits + this.value.slice(end);
+            this.value = newVal.slice(0, max);
+        }
+    };
 }
 
 // Mostrar/ocultar botón buscar
@@ -941,60 +1010,24 @@ function toggleBotonBuscarRUC(tipoDocumento) {
     }
 }
 
-
-// Consultar RUC
-// async function consultarRUC() {
-//     const ruc = document.getElementById('txtNumDoc').value.trim();
-//     const txtRazonSocial = document.getElementById('txtRazonSocial');
-
-//     if (!ruc || ruc.length !== 11 || !/^\d+$/.test(ruc)) {
-//         alert('Ingrese un RUC válido de 11 dígitos');
-//         return;
-//     }
-
-//     const btnBuscarRUC = document.getElementById('btnBuscarRUC');
-//     const originalText = btnBuscarRUC.innerHTML;
-//     btnBuscarRUC.innerHTML = 'Buscando...';
-//     btnBuscarRUC.disabled = true;
-
-//     try {
-//         const response = await fetch(`consulta_ruc.php?ruc=${ruc}`);
-
-//         if (!response.ok) {
-//             throw new Error(`Error HTTP: ${response.status}`);
-//         }
-
-//         const data = await response.json();
-
-//         if (data && data.razon_social) {
-//             txtRazonSocial.value = data.razon_social;
-//         } else {
-//             alert('RUC no encontrado');
-//             txtRazonSocial.value = '';
-//         }
-
-//     } catch (error) {
-//         alert('Error al consultar RUC: ' + error.message);
-//         console.error('Error:', error);
-//     } finally {
-//         btnBuscarRUC.innerHTML = originalText;
-//         btnBuscarRUC.disabled = false;
-//     }
-// }
-
 function toggleCamposMenorEdad(esMenor) {
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
     const txtNumDoc = document.getElementById('txtNumDoc');
 
     if (!ddlTipoDocumento || !txtNumDoc) return;
 
+    // Referencias a los campos de nombre/apellidos
+    const txtApePat = document.getElementById('txtApePat');
+    const txtApeMat = document.getElementById('txtApeMat');
+    const txtNombre = document.getElementById('txtNombre');
+
     if (esMenor) {
-        // Si es menor de edad, deshabilitar y limpiar campos
+        // Si es menor de edad, deshabilitar y limpiar campos de documento
         ddlTipoDocumento.disabled = true;
         txtNumDoc.disabled = true;
 
         // Establecer valores por defecto para menores
-        ddlTipoDocumento.value = '1'; // DNI
+        ddlTipoDocumento.value = '1'; // DNI por defecto
         txtNumDoc.value = '';
 
         // Agregar estilos visuales para indicar que está deshabilitado
@@ -1003,6 +1036,23 @@ function toggleCamposMenorEdad(esMenor) {
         txtNumDoc.style.backgroundColor = '#f8f9fa';
         txtNumDoc.style.color = '#6c757d';
 
+        // Habilitar los campos de nombre y apellidos para que el responsable pueda llenarlos
+        if (txtApePat) {
+            txtApePat.readOnly = false;
+            txtApePat.style.backgroundColor = '';
+            txtApePat.style.cursor = '';
+        }
+        if (txtApeMat) {
+            txtApeMat.readOnly = false;
+            txtApeMat.style.backgroundColor = '';
+            txtApeMat.style.cursor = '';
+        }
+        if (txtNombre) {
+            txtNombre.readOnly = false;
+            txtNombre.style.backgroundColor = '';
+            txtNombre.style.cursor = '';
+        }
+
         // Limpiar errores de validación de estos campos
         ocultarError('divTipoDocumento');
         ocultarError('divNumDoc');
@@ -1010,7 +1060,7 @@ function toggleCamposMenorEdad(esMenor) {
         // Mostrar mensaje informativo
         mostrarMensajeMenorEdad();
     } else {
-        // Si no es menor de edad, habilitar campos
+        // Si no es menor de edad, habilitar campos de documento
         ddlTipoDocumento.disabled = false;
         txtNumDoc.disabled = false;
 
@@ -1019,6 +1069,20 @@ function toggleCamposMenorEdad(esMenor) {
         ddlTipoDocumento.style.color = '';
         txtNumDoc.style.backgroundColor = '';
         txtNumDoc.style.color = '';
+
+        // Opcional: dejar los campos de nombre como editable por defecto (se manejan en cambiarTipoPersona)
+        if (txtApePat) {
+            txtApePat.readOnly = false;
+            txtApePat.style.cursor = '';
+        }
+        if (txtApeMat) {
+            txtApeMat.readOnly = false;
+            txtApeMat.style.cursor = '';
+        }
+        if (txtNombre) {
+            txtNombre.readOnly = false;
+            txtNombre.style.cursor = '';
+        }
 
         // Ocultar mensaje informativo
         ocultarMensajeMenorEdad();
@@ -1032,7 +1096,7 @@ function mostrarMensajeMenorEdad() {
         mensajeDiv = document.createElement('div');
         mensajeDiv.id = 'mensajeMenorEdad';
         mensajeDiv.style.cssText = 'color: #856404; background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; border-radius: 5px; margin: 10px 0; font-size: 12px;';
-        mensajeDiv.innerHTML = '<strong>Información:</strong> Para menores de edad, los datos del documento de identidad deben ser proporcionados por el representante legal.';
+        mensajeDiv.innerHTML = '<strong>Información:</strong> Opción elegida es de menores de edad.';
 
         // Insertar después del campo de número de documento
         const divNumDoc = document.getElementById('divNumDoc');
@@ -1048,8 +1112,6 @@ function ocultarMensajeMenorEdad() {
         mensajeDiv.style.display = 'none';
     }
 }
-
-
 
 function inicializarTiposDocumento(tipoPersona = null) {
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
@@ -1356,7 +1418,7 @@ function validarFormulario() {
     // Validar tipo de persona
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
     if (ddlTipoPersona && ddlTipoPersona.value === '-') {
-        mostrarError('divTipoPersona', 'Seleccione el tipo de persona');
+        mostrarError('divTipoPersona', '');
         esValido = false;
     } else {
         ocultarError('divTipoPersona');
@@ -1365,7 +1427,7 @@ function validarFormulario() {
     // Validar tipo de documento (solo si NO es menor de edad)
     const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
     if (ddlTipoDocumento && !esMenorEdad && ddlTipoDocumento.value === '-') {
-        mostrarError('divTipoDocumento', 'Seleccione el tipo de documento');
+        mostrarError('divTipoDocumento', '');
         esValido = false;
     } else {
         ocultarError('divTipoDocumento');
@@ -1374,7 +1436,7 @@ function validarFormulario() {
     // Validar número de documento (solo si NO es menor de edad)
     const txtNumDoc = document.getElementById('txtNumDoc');
     if (txtNumDoc && !esMenorEdad && (!txtNumDoc.value || txtNumDoc.value.trim() === '')) {
-        mostrarError('divNumDoc', 'Ingrese el número de documento');
+        mostrarError('divNumDoc', '');
         esValido = false;
     } else {
         ocultarError('divNumDoc');
@@ -1383,7 +1445,7 @@ function validarFormulario() {
     // Validar descripción
     const txtDescripcion = document.getElementById('txtDescripcion');
     if (txtDescripcion && (!txtDescripcion.value || txtDescripcion.value.trim() === '' || txtDescripcion.value.length < 15)) {
-        mostrarError('divDescripcion', 'La descripción debe tener al menos 15 caracteres');
+        mostrarError('divDescripcion', '');
         esValido = false;
     } else {
         ocultarError('divDescripcion');
@@ -1392,7 +1454,7 @@ function validarFormulario() {
     // Validar forma de entrega
     const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
     if (ddlFormaEntrega && ddlFormaEntrega.value === '-') {
-        mostrarError('divFormaEntregaRequired', 'Seleccione la forma de entrega');
+        mostrarError('divFormaEntregaRequired', '');
         esValido = false;
     } else {
         ocultarError('divFormaEntregaRequired');
@@ -1401,13 +1463,20 @@ function validarFormulario() {
     // Validar forma de notificación
     const ddlFormaNotificacion = document.getElementById('ddlFormaNotificacion');
     if (ddlFormaNotificacion && ddlFormaNotificacion.value === '-') {
-        mostrarError('divFormaNotificacionRequired', 'Seleccione la forma de notificación');
+        mostrarError('divFormaNotificacionRequired', '');
         esValido = false;
     } else {
         ocultarError('divFormaNotificacionRequired');
     }
 
-    //return esValido;
+    // Validar dependencia que posee la información (OBLIGATORIO)
+    const ddlUnidadOrganica = document.getElementById('ddlUnidadOrganica');
+    if (ddlUnidadOrganica && ddlUnidadOrganica.value === '-') {
+        mostrarError('divUOrganica', '');
+        esValido = false;
+    } else {
+        ocultarError('divUOrganica');
+    }
 
     // Validar edad si es persona natural y se ha seleccionado menor/mayor de edad
     const vEdad = document.getElementById('vEdad');
@@ -1428,17 +1497,32 @@ function validarFormulario() {
 
 function mostrarError(elementId, mensaje) {
     const elemento = document.getElementById(elementId);
-    elemento.innerHTML = '<span style="color: red; font-size: 12px;">' + mensaje + '</span>';
+    if (!elemento) return;
+
+    // Buscar un contenedor de error existente dentro del elemento
+    let errorEl = elemento.querySelector('.error-msg');
+    if (!errorEl) {
+        errorEl = document.createElement('div');
+        errorEl.className = 'error-msg';
+        // Mantener estilos sencillos aquí para evitar depender de CSS externo
+        errorEl.style.marginTop = '4px';
+        elemento.appendChild(errorEl);
+    }
+
+    errorEl.innerHTML = '<span style="color: red; font-size: 12px;">' + mensaje + '</span>';
 }
 
 function ocultarError(elementId) {
     const elemento = document.getElementById(elementId);
-    elemento.innerHTML = '';
+    if (!elemento) return;
+
+    const errorEl = elemento.querySelector('.error-msg');
+    if (errorEl) elemento.removeChild(errorEl);
 }
 
 function enviarSolicitud() {
     if (!validarFormulario()) {
-        alert('Por favor, completar todos los campos obligatorios.');
+        alert('Por favor, completa todos los campos obligatorios.');
         return;
     }
 
@@ -1466,6 +1550,12 @@ async function generarPDF() {
 
     // En un caso real, aquí se generaría el PDF con los datos
     console.log('Datos para el PDF:', datos);
+    // Debug temporal: confirmar que dependenciaInfo viene correctamente
+    try {
+        console.log('DEBUG generarPDF - dependenciaInfo:', datos.dependenciaInfo);
+    } catch (e) {
+        console.error('DEBUG generarPDF error al leer dependenciaInfo:', e);
+    }
 
     // Crear instancia de jsPDF
     const { jsPDF } = window.jspdf;
@@ -1575,9 +1665,8 @@ async function generarPDF() {
     doc.text(descripcionLines, marginLeft, yPosition);
     yPosition += (descripcionLines.length * 5) + 8;
 
-    // Adjunta archivo
-    const archivoInput = document.getElementById('file');
-    const adjuntaArchivo = archivoInput && archivoInput.files.length > 0 ? 'SI' : 'NO';
+    // Adjunta archivo (usar valor recopilado en 'datos')
+    const adjuntaArchivo = datos.adjuntaArchivo || 'NO';
     yPosition = agregarCampo('Adjunta archivo', adjuntaArchivo, yPosition);
 
     // Medio de entrega
@@ -1594,10 +1683,17 @@ async function generarPDF() {
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
 
-    // Área que posee la información
-    const ddlUnidadOrganica = document.getElementById('ddlUnidadOrganica');
-    const areaInfo = ddlUnidadOrganica.options[ddlUnidadOrganica.selectedIndex].text;
-    yPosition = agregarCampo('Área que posee la información', areaInfo !== '-- SELECCIONAR --' ? areaInfo : 'No especificado', yPosition);
+    // Área que posee la información (usar wrap si es muy largo)
+    const areaTexto = datos.dependenciaInfo && datos.dependenciaInfo !== '' ? datos.dependenciaInfo : 'No especificado';
+    // Agregar etiqueta en negrita
+    doc.setFont('helvetica', 'bold');
+    doc.text('Área que posee la información:', marginLeft, yPosition);
+    // Separar en líneas que quepan en el ancho disponible
+    doc.setFont('helvetica', 'normal');
+    const areaMaxWidth = pageWidth - marginLeft - marginRight - 60; // dejar espacio para la etiqueta
+    const areaLines = doc.splitTextToSize(areaTexto, areaMaxWidth);
+    doc.text(areaLines, marginLeft + 60, yPosition);
+    yPosition += (areaLines.length * 5);
 
     // Datos que propicien la localización
     yPosition += 3;
@@ -1646,9 +1742,9 @@ async function generarPDF() {
 
     // Guardar el PDF con el nombre en formato: 2025-0214637.pdf
     const nombreArchivo = numeroExpediente + '.pdf';
-    doc.save(nombreArchivo);
+    doc.save(nombreArchivo); //en eta linea guarda el pdf y descatraga local
 
-    // Mostrar el número de expediente al usuario
+    //Mostrar el número de expediente al usuario
     setTimeout(() => {
         Swal.fire({
             icon: 'success',
@@ -1659,7 +1755,75 @@ async function generarPDF() {
             confirmButtonText: 'Aceptar'
         });
     }, 500);
+
+    // En lugar de descargar, enviar al servidor
+    // try {
+    //     await guardarPDFEnServidor(doc, nombreArchivo, numeroExpediente);
+    // } catch (error) {
+    //     console.error('Error al guardar el PDF:', error);
+    //     // Mostrar mensaje de error al usuario
+    //     Swal.fire({
+    //         icon: 'error',
+    //         title: 'Error',
+    //         text: 'Hubo un problema al guardar la solicitud. Por favor, intente nuevamente.',
+    //         confirmButtonText: 'Aceptar'
+    //     });
+    // }
+
+    // Mensaje mejorado
+    // Swal.fire({
+    //     icon: 'success',
+    //     title: 'Solicitud Registrada',
+    //     html: `✅ PDF generado correctamente<br><br>
+    //            <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
+    //            <strong>Archivo:</strong> ${nombreArchivo}<br>
+    //            <strong>Ubicación:</strong> Descargas/pdfs/<br>
+    //            <em>El archivo se moverá automáticamente a la carpeta pdfs</em>`,
+    //     confirmButtonText: 'Aceptar'
+    // });
 }
+
+// Agregar esta nueva función después de la función generarPDF()
+// async function guardarPDFEnServidor(doc, nombreArchivo, numeroExpediente) {
+//     // Convertir el PDF a Blob
+//     const pdfBlob = doc.output('blob');
+
+//     // Crear FormData para enviar el archivo
+//     const formData = new FormData();
+//     formData.append('pdf', pdfBlob, nombreArchivo);
+//     formData.append('numeroExpediente', numeroExpediente);
+
+//     try {
+//         // Enviar el PDF al servidor
+//         const response = await fetch('guardar_pdf.php', {
+//             method: 'POST',
+//             body: formData
+//         });
+
+//         if (response.ok) {
+//             const result = await response.json();
+
+//             if (result.success) {
+//                 // Mostrar mensaje de éxito
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Solicitud Registrada',
+//                     html: `Su solicitud ha sido generada correctamente.<br><br>
+//                             <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
+//                             <strong>Archivo:</strong> ${nombreArchivo}`,
+//                     confirmButtonText: 'Aceptar'
+//                 });
+//             } else {
+//                 throw new Error(result.message || 'Error al guardar el PDF');
+//             }
+//         } else {
+//             throw new Error('Error en la respuesta del servidor');
+//         }
+//     } catch (error) {
+//         console.error('Error al guardar PDF:', error);
+//         throw error;
+//     }
+// }
 
 function recopilarDatosFormulario() {
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');
@@ -1668,8 +1832,8 @@ function recopilarDatosFormulario() {
     const ddlProvincia = document.getElementById('ddlProvincia');
     const ddlDistrito = document.getElementById('ddlDistrito');
     const ddlFormaEntrega = document.getElementById('ddlFormaEntrega');
-    const ddlUnidadOrganica = document.getElementById('ddlUnidadOrganica')
     const ddlFormaNotificacion = document.getElementById('ddlFormaNotificacion');
+    const ddlUnidadOrganica = document.getElementById('ddlUnidadOrganica');
     const vSexo = document.getElementById('vSexo');
     const vGrupoEtnico = document.getElementById('vGrupoEtnico');
     const vLenguaMaterna = document.getElementById('vLenguaMaterna');
@@ -1684,6 +1848,16 @@ function recopilarDatosFormulario() {
     const grupoEtnico = vGrupoEtnico.options[vGrupoEtnico.selectedIndex].text;
     const lenguaMaterna = vLenguaMaterna.options[vLenguaMaterna.selectedIndex].text;
     const nacionalidad = vNacionalidad.options[vNacionalidad.selectedIndex].text;
+
+    // Obtener dependencia
+    let dependenciaInfo = 'No especificado';
+    if (ddlUnidadOrganica && ddlUnidadOrganica.value !== '-') {
+        dependenciaInfo = ddlUnidadOrganica.options[ddlUnidadOrganica.selectedIndex].text;
+    }
+
+    // Archivo adjunto
+    const archivoInput = document.getElementById('file');
+    const adjuntaArchivo = archivoInput && archivoInput.files && archivoInput.files.length > 0 ? 'SI' : 'NO';
 
     // Formatear valores específicos
     let grupoEtnicoFormateado = grupoEtnico;
@@ -1701,6 +1875,15 @@ function recopilarDatosFormulario() {
     let sexoFormateado = sexo;
     if (sexo === 'MASCULINO') sexoFormateado = 'HOMBRE';
     if (sexo === 'FEMENINO') sexoFormateado = 'MUJER';
+
+    // Debug temporal: mostrar selección de unidad orgánica en consola (se puede eliminar después)
+    try {
+        console.log('DEBUG ddlUnidadOrganica element:', ddlUnidadOrganica);
+        console.log('DEBUG ddlUnidadOrganica value:', ddlUnidadOrganica ? ddlUnidadOrganica.value : 'NO_ELEMENT');
+        console.log('DEBUG dependenciaInfo (texto):', dependenciaInfo);
+    } catch (e) {
+        console.error('DEBUG error al leer ddlUnidadOrganica:', e);
+    }
 
     return {
         tipoPersona: tipoPersona,
@@ -1726,7 +1909,9 @@ function recopilarDatosFormulario() {
         grupoEtnico: grupoEtnicoFormateado,
         discapacidad: document.getElementById('cDiscapacidad').checked ? 'SI' : 'NO',
         lenguaMaterna: lenguaMaternaFormateada,
-        nacionalidad: nacionalidad === 'PERUANA' ? 'PERÚ' : nacionalidad
+        nacionalidad: nacionalidad === 'PERUANA' ? 'PERÚ' : nacionalidad,
+        dependenciaInfo: dependenciaInfo,
+        adjuntaArchivo: adjuntaArchivo
     };
 };
 
@@ -1769,6 +1954,12 @@ function limpiarFormulario() {
 
     // Limpiar archivo
     document.getElementById('file').value = '';
+
+    // Ocultar botones de búsqueda (si existen)
+    const btnBuscarDNI = document.getElementById('btnBuscarDNI');
+    if (btnBuscarDNI) btnBuscarDNI.style.display = 'none';
+    const btnBuscarRUC = document.getElementById('btnBuscarRUC');
+    if (btnBuscarRUC) btnBuscarRUC.style.display = 'none';
 
     // Limpiar unidad orgánica
     document.getElementById('ddlUnidadOrganica').value = '-';
@@ -1820,5 +2011,8 @@ function limpiarFormulario() {
 
     // Reinicializar tipos de documento
     inicializarTiposDocumento();
+    // Reiniciar validación del número de documento según el tipo por defecto
+    const ddlTipoDocumento = document.getElementById('ddlTipoDocumento');
+    if (ddlTipoDocumento) configurarValidacionNumDoc(ddlTipoDocumento.value);
 }
 

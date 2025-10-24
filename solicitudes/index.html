@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitud de Acceso a la Información Pública</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Permitir que las opciones del select se muestren en varias líneas cuando el texto sea largo */
+        #ddlUnidadOrganica,
+        #ddlUnidadOrganica option {
+            white-space: normal;
+        }
+
+        /* Ajuste de altura de línea para mejorar lectura */
+        #ddlUnidadOrganica option {
+            line-height: 1.2;
+        }
+
+        /* Limitar el ancho para que el texto haga wrap dentro del select */
+        #ddlUnidadOrganica {
+            max-width: 700px;
+        }
+    </style>
     <!-- Incluir jsPDF desde CDN -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script> -->
@@ -404,7 +421,7 @@
                     Dependencia que posee la información:
                 </div>
                 <div class="dt" id="divUO">
-                    <select id="ddlUnidadOrganica" class="q1">
+                    <select id="ddlUnidadOrganica" class="q1 required">
                         <option value="-">-- SELECCIONAR --</option>
                         <option value="1">DESPACHO MINISTERIAL</option>
                         <option value="2">GABINETE DE ASESORES</option>
@@ -731,15 +748,13 @@
                 </div>
                 <div id="divOtrosMedionNotifica" class="dt"></div>
             </div>
+            <!-- Mover aquí el contenedor del botón para que quede a la altura del select de notificación -->
+            <div id="divGrabar" class="dt" style="display: flex;">
+                <input type="button" id="btngrabar" value="Enviar Solicitud" class="butonn top" />
+            </div>
         </div>
 
         <div class="linefiltro floatleft e2"></div>
-
-        <div id="divGrabar" class="linefiltro floatleft">
-            <center>
-                <input type="button" id="btngrabar" value="Enviar Solicitud" class="butonn top" />
-            </center>
-        </div>
 
         <div id="divMsjRespuesta"></div>
     </div>
@@ -864,4 +879,85 @@
     <script src="script.js"></script>
 </body>
 
-</html>
+<style>
+    /* Permitir que las opciones del select se muestren en varias líneas cuando el texto sea largo */
+    #ddlUnidadOrganica,
+    #ddlUnidadOrganica option {
+        white-space: normal;
+    }
+
+    /* Ajuste de altura de línea para mejorar lectura */
+    #ddlUnidadOrganica option {
+        line-height: 1.2;
+    }
+
+    /* Limitar el ancho para que el texto haga wrap dentro del select */
+    #ddlUnidadOrganica {
+        max-width: 700px;
+    }
+
+    /* Floating FAB: contenedor fijo en esquina */
+    #divGrabar {
+        position: fixed;
+        right: 16px;
+        /* distancia al borde derecho (ajusta a 8/16/24px) */
+        bottom: 24px;
+        /* distancia al borde inferior */
+        /* z-index: 9999; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        /* permite que el input reciba eventos */
+    }
+
+    /* Botón circular */
+    #btngrabar {
+        pointer-events: auto;
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(350px);
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        white-space: pre-line;
+        word-break: break-word;
+        text-align: center;
+        line-height: 1.05;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+
+        /* Ajuste responsivo: en pantallas pequeñas centrar el botón */
+        @media (max-width: 480px) {
+            #btngrabar {
+                width: 56px;
+                height: 56px;
+                font-size: 10px;
+                transform: translateX(0);
+                left: 50%;
+            }
+        }
+    }
+
+    /* Mostrar texto más legible en pantallas pequeñas: centrar el botón en móviles y reducir tamaño */
+    @media (max-width: 480px) {
+        #divGrabar {
+            justify-content: center;
+        }
+
+        #btngrabar {
+            width: 56px;
+            height: 56px;
+            font-size: 10px;
+        }
+    }
+</style>
