@@ -571,7 +571,8 @@
                 Teléfono:
             </div>
             <div class="dt k1">
-                <input id="txtTelefono" name="vNumTelefono" class="input upper" maxlength="7" />
+                <input id="txtTelefono" name="vNumTelefono" class="input upper" type="text" inputmode="numeric"
+                    maxlength="7" oninput="this.value = this.value.replace(/\D/g,'').slice(0,7);" />
             </div>
             <div id="divTelefono" class="dt"></div>
             <div class="dt lbl-label opcional"
@@ -585,7 +586,8 @@
                 Celular:
             </div>
             <div class="dt k1">
-                <input id="txtCelular" name="vNumCelular" class="input upper" maxlength="9" />
+                <input id="txtCelular" name="vNumCelular" class="input upper" maxlength="9"
+                    oninput="this.value = this.value.replace(/\D/g,'').slice(0,9);" />
             </div>
             <div id="divCelular" class="dt"></div>
             <div class="dt lbl-label"
@@ -875,6 +877,28 @@
                 }
             });
         });
+    </script>
+    <script>
+        // Configurable upload URL builder.
+        // By default uses the page host (window.location.hostname) so the same machine
+        // serving the UI will be used as the upload target. You can override the host
+        // or port by defining the globals `window.UPLOAD_PDF_HOST` and/or
+        // `window.UPLOAD_PDF_PORT` before this script runs (for example via a small
+        // injected <script> or a per-machine `config.js`).
+        (function () {
+            try {
+                const host = window.UPLOAD_PDF_HOST || window.location.hostname || 'localhost';
+                const port = window.UPLOAD_PDF_PORT || '3000';
+                const protocol = window.UPLOAD_PDF_PROTOCOL || window.location.protocol || 'http:';
+                // Ensure protocol ends with ':'
+                const proto = protocol.endsWith(':') ? protocol : protocol + ':';
+                window.UPLOAD_PDF_URL = `${proto}//${host}:${port}/upload-pdf`;
+                console.log('UPLOAD_PDF_URL set to', window.UPLOAD_PDF_URL);
+            } catch (e) {
+                console.error('Error setting UPLOAD_PDF_URL, falling back to http://localhost:3000/upload-pdf', e);
+                window.UPLOAD_PDF_URL = window.UPLOAD_PDF_URL || 'http://localhost:3000/upload-pdf';
+            }
+        })();
     </script>
     <script src="script.js"></script>
 </body>

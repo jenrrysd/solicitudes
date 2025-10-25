@@ -254,6 +254,12 @@ const provinciasData = {
     ],
 };
 
+// URL del endpoint donde se suben los PDFs.
+// IMPORTANTE: si accedes a la UI desde otra máquina de la LAN, cambia esta URL
+// por la IP o dominio del servidor donde corre node (ej: 'http://192.168.1.105:3000/upload-pdf').
+// Si la UI se sirve desde el mismo servidor, la URL relativa '/upload-pdf' también funciona.
+const UPLOAD_PDF_URL = window.UPLOAD_PDF_URL || 'http://localhost:3000/upload-pdf';
+
 const distritosData = {
     "1501": [
         { codigo: "150101", nombre: "LIMA" },
@@ -1742,19 +1748,64 @@ async function generarPDF() {
 
     // Guardar el PDF con el nombre en formato: 2025-0214637.pdf
     const nombreArchivo = numeroExpediente + '.pdf';
-    doc.save(nombreArchivo); //en eta linea guarda el pdf y descatraga local
+    // Enviar el PDF al servidor para que lo guarde manteniendo el nombre original
+    try {
+        const pdfBlob = await doc.output('blob');
 
-    //Mostrar el número de expediente al usuario
-    setTimeout(() => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Solicitud Registrada',
-            html: `Su solicitud ha sido generada correctamente.<br><br>
-                    <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
-                    <strong>Archivo:</strong> ${nombreArchivo}`,
-            confirmButtonText: 'Aceptar'
+        const formData = new FormData();
+        formData.append('pdf', pdfBlob, nombreArchivo);
+        formData.append('numeroExpediente', numeroExpediente);
+
+        const resp = await fetch(UPLOAD_PDF_URL, {
+            method: 'POST',
+            body: formData
         });
-    }, 500);
+
+        if (resp.ok) {
+            const result = await resp.json();
+            const savedPath = result.path || '';
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Solicitud Registrada',
+                    html: `Su solicitud ha sido generada correctamente.<br><br>
+                            <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
+                            <strong>Archivo:</strong> ${nombreArchivo}<br>
+                            <strong>Guardado en servidor:</strong> ${savedPath}`,
+                    confirmButtonText: 'Aceptar'
+                });
+            }, 500);
+        } else {
+            const text = await resp.text();
+            console.error('Respuesta no OK al subir PDF:', resp.status, text);
+            const result = await Swal.fire({
+                icon: 'warning',
+                title: 'No se pudo guardar en servidor',
+                html: 'Hubo un problema al guardar el PDF en el servidor. ¿Desea descargar el PDF localmente como respaldo?',
+                showCancelButton: true,
+                confirmButtonText: 'Descargar',
+                cancelButtonText: 'Cancelar'
+            });
+            if (result.isConfirmed) {
+                doc.save(nombreArchivo);
+            } else {
+                Swal.fire({ icon: 'error', title: 'No guardado', text: 'El PDF no se guardó en el servidor ni se descargó localmente.' });
+            }
+        }
+    } catch (err) {
+        console.error('Error al subir PDF:', err);
+        const result = await Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            html: 'Ocurrió un error al intentar guardar el PDF en el servidor. ¿Desea descargarlo localmente como respaldo?',
+            showCancelButton: true,
+            confirmButtonText: 'Descargar',
+            cancelButtonText: 'Cancelar'
+        });
+        if (result.isConfirmed) {
+            doc.save(nombreArchivo);
+        }
+    }
 
     // En lugar de descargar, enviar al servidor
     // try {
@@ -1783,47 +1834,7 @@ async function generarPDF() {
     // });
 }
 
-// Agregar esta nueva función después de la función generarPDF()
-// async function guardarPDFEnServidor(doc, nombreArchivo, numeroExpediente) {
-//     // Convertir el PDF a Blob
-//     const pdfBlob = doc.output('blob');
 
-//     // Crear FormData para enviar el archivo
-//     const formData = new FormData();
-//     formData.append('pdf', pdfBlob, nombreArchivo);
-//     formData.append('numeroExpediente', numeroExpediente);
-
-//     try {
-//         // Enviar el PDF al servidor
-//         const response = await fetch('guardar_pdf.php', {
-//             method: 'POST',
-//             body: formData
-//         });
-
-//         if (response.ok) {
-//             const result = await response.json();
-
-//             if (result.success) {
-//                 // Mostrar mensaje de éxito
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Solicitud Registrada',
-//                     html: `Su solicitud ha sido generada correctamente.<br><br>
-//                             <strong>N° de Expediente:</strong> ${numeroExpediente}<br>
-//                             <strong>Archivo:</strong> ${nombreArchivo}`,
-//                     confirmButtonText: 'Aceptar'
-//                 });
-//             } else {
-//                 throw new Error(result.message || 'Error al guardar el PDF');
-//             }
-//         } else {
-//             throw new Error('Error en la respuesta del servidor');
-//         }
-//     } catch (error) {
-//         console.error('Error al guardar PDF:', error);
-//         throw error;
-//     }
-// }
 
 function recopilarDatosFormulario() {
     const ddlTipoPersona = document.getElementById('ddlTipoPersona');

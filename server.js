@@ -2,12 +2,39 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import { execSync } from "child_process";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+import os from "os";
 
 const app = express();
 const PORT = 3000;
 const TOKEN = "sk_10921.ytFcmj7MvF6ZVKoEKmL9P2aAixNO8fRV";
 
 app.use(cors({ origin: "*" }));
+
+// Middleware de diagnóstico para /upload-pdf: registra intentos de subida
+app.use('/upload-pdf', (req, res, next) => {
+  try {
+    const origin = req.headers['origin'] || req.headers['referer'] || '-';
+    const contentLength = req.headers['content-length'] || '-';
+    console.log(`Incoming /upload-pdf request from ${req.ip} - Origin: ${origin} - Content-Length: ${contentLength}`);
+  } catch (e) {
+    console.error('Error logging upload attempt:', e);
+  }
+  next();
+});
+
+// --- Configuración para guardar PDFs subidos
+const PDF_SAVE_DIR = process.env.PDF_SAVE_DIR || path.join(os.homedir(), 'Descargas', 'pdfs');
+try {
+  fs.mkdirSync(PDF_SAVE_DIR, { recursive: true });
+} catch (err) {
+  console.error("No se pudo crear la carpeta para PDFs:", PDF_SAVE_DIR, err);
+}
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // Función para obtener IP usando tu comando Linux
 function obtenerIPLinux() {
@@ -73,6 +100,31 @@ app.get("/api/dni/:dni", async (req, res) => {
   } catch (error) {
     console.error("Error consultando DNI:", error);
     res.status(500).json({ error: "Error en la consulta del DNI" });
+  }
+});
+
+// Endpoint para recibir y guardar PDF. Espera FormData con campo 'pdf'.
+app.post('/upload-pdf', upload.single('pdf'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "No se recibió archivo PDF en el campo 'pdf'" });
+    }
+
+    // Tomar el nombre original enviado por el cliente si existe
+    let originalName = req.file.originalname || 'document.pdf';
+    // Sanitizar para evitar rutas/char peligrosos
+    originalName = path.basename(originalName);
+    originalName = originalName.replace(/[^a-zA-Z0-9._-]/g, '_');
+
+    const savePath = path.join(PDF_SAVE_DIR, originalName);
+
+    fs.writeFileSync(savePath, req.file.buffer);
+
+    console.log(`PDF guardado: ${savePath}`);
+    return res.json({ ok: true, path: savePath, filename: originalName });
+  } catch (err) {
+    console.error('Error guardando PDF:', err);
+    return res.status(500).json({ error: 'Error al guardar el archivo' });
   }
 });
 
